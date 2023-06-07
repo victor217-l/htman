@@ -37,13 +37,15 @@ var upload = multer({storage:storage});
 
 var storage = multer.diskStorage({
     destination: function(req, file, cb){
-        cb(null, "public/assets/images/upload_images")
+        cb(null, "public/assets/images/upload_images") 
     }, 
     filename: function(req, file, cb){
         console.log(file)
        cb(null, file.originalname)
     }
 })
+
+//push to the url of the github respository
 
 router.post('/' ,[check('username').notEmpty().withMessage("username is required"),
 check('password').notEmpty().withMessage("password is required"),
