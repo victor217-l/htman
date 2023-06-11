@@ -34,7 +34,7 @@ router.post('/', authenticateToken, function(req,res){
         if(err){
             res.status(500).json({msg:err.toString()})
         }else{
-            res.json({status: "200", msg:"complain sen", list:result})
+            res.json({status: "20", msg:"complain sen", list:result})
         }
        // res.redirect('back')
     })
