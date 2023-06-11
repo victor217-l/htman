@@ -61,7 +61,7 @@ function(req, response) {
                 response.cookie('username', username); 
                 var status = results[0].email_status
                 if(status=="not_verified"){
-                  response.send("please verify your email")
+                  response.send("please verify your emai")
                 }else{
                     sweetalert.fire('Logged in'); 
                    // response.status('200')
