@@ -4,7 +4,7 @@ var bodyParser = require('body-parser');
 var db = require.main.require('./models/db_controller');
 //var sign = require('.')
 var mysql = require('mysql');
-var session = require('express-session');
+//var session = require('express-session');
 var sweetalert = require('sweetalert2');
 var jwt = require('jsonwebtoken')
 require('dotenv').config()
@@ -20,11 +20,11 @@ var con = mysql.createConnection({
    database: 'hmsystem'
 })
 
-router.use(session({
-    secret: 'secret',
-    resave: true,//save yser details, when user hasnt log out
-    saveUninitialized: true 
-}))
+// router.use(session({
+//     secret: 'secret',
+//     resave: true,//save yser details, when user hasnt log out
+//     saveUninitialized: true 
+// }))
 
 router.use(bodyParser.urlencoded({extended: true}))
 router.use(bodyParser.json());
