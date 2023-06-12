@@ -2,7 +2,7 @@
   "name": "hospimanagesystem",
   "version": "1.0.0",
   "description": "tutoriAL",
-  "main": "app.js",
+  "main": "server.js",
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon server"
