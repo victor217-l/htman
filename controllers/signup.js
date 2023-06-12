@@ -14,7 +14,7 @@ const { default: authtoken } = require('../utility/autoken');
 const multer = require('multer');
 
 
-router.use(bodyParser.urlencoded({entended: true}));
+router.use(bodyParser.urlencoded({extended: true}));
 router.use(bodyParser.json()); 
 
 let refreshTokens = []
