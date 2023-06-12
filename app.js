@@ -33,9 +33,9 @@ app.use(express.static('./public'));//consist of the .html images,
 app.use(bodyParser.urlencoded({extended:true}));// to open it 
 app.use(bodyParser.json());
 app.use(cookie());
-const PORT = process.env.Port || 3300 //300
+const PORT = process.env.Port || 3000 //300
 //if port is localhost let it run on port 3000
-server.listen(PORT, ()=> console.log(`server runing on port ${PORT}`))
+server.listen(PORT, () => console.log(`server runing on port ${PORT}`))
 
 //> require('crypto').randomBytes(64).toString('hex')
 
