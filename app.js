@@ -9,6 +9,8 @@ var async = require('async');
 var nodemailer = require('nodemailer');// to send massages when the user signs up
 var crypto = require('crypto');
 var expressValidator = require('express-validator');
+var sweetalert = require('sweetalert2');
+
 var sweetarlert = require('sweetalert2')//to give a customized alert
 var bodyParser = require('body-parser');
 const http = require('http');
