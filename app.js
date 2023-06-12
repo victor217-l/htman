@@ -12,18 +12,18 @@ var expressValidator = require('express-validator');
 var sweetarlert = require('sweetalert2')//to give a customized alert
 var bodyParser = require('body-parser');
 const http = require('http');
-var db = require('../models/db_controller')
-var signup = require('../controllers/signup');
-var login = require('../controllers/login');
-var verify = require('../controllers/verify');
-var reset = require('../controllers/reset');
-var doctors = require('../controllers/doc_controller');
-var employee  = require('../controllers/employee');
-var appointment  = require('../controllers/appointment.js');
-var store = require('../controllers/store');
-var refresh_token = require('../controllers/refreshtoken')
-var reciept = require('../controllers/reciept')
-var complain = require('../controllers/complain')
+var db = require.main.require('./models/db_controller')
+var signup = require('./controllers/signup');
+var login = require('./controllers/login');
+var verify = require('./controllers/verify');
+var reset = require('./controllers/reset');
+var doctors = require('./controllers/doc_controller');
+var employee  = require('./controllers/employee');
+var appointment  = require('./controllers/appointment.js');
+var store = require('./controllers/store');
+var refresh_token = require('./controllers/refreshtoken')
+var reciept = require('./controllers/reciept')
+var complain = require('./controllers/complain')
 var app = express();
 
 app.set('view engine','ejs');
@@ -33,7 +33,7 @@ app.use(express.static('./public'));//consist of the .html images,
 app.use(bodyParser.urlencoded({extended:true}));// to open it 
 app.use(bodyParser.json());
 app.use(cookie());
-const PORT = process.env.Port || 3306 //300
+const PORT = process.env.Port || 3300 //300
 //if port is localhost let it run on port 3000
 server.listen(PORT, ()=> console.log(`server runing on port ${PORT}`))
 

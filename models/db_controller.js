@@ -5,7 +5,7 @@ var bodyParser = require('body-parser');
 
 
 var con = mysql.createConnection({
-    host: '127.0.0.1',//localhost
+    host: 'localhost',//localhost
     user: 'root',
     password: '',
     database: 'hmsystem',
