@@ -119,5 +119,7 @@ function authenticateToken(req, res, next) {
     });
  }
 
+ ////  "dev": "nodemon server"
+
 
 module.exports = router;
