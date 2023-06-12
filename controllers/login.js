@@ -54,7 +54,12 @@ function(req, response) {
 
     if(username && password){
         con.query('select * from users where username = ? and password = ? ', [username, password],
-        function(eror, results, fielsds){
+        function(error, results, fielsds){
+            if (error) {
+                console.error('Error executing the query:', error);
+                response.status(500).send('Internal Server Error');
+                return
+            }
             if(results.length>0){
                // req.session.loggedin = true;
                 //req.session.username = username;
