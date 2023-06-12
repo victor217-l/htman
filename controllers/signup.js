@@ -68,7 +68,6 @@ check('email').notEmpty().withMessage("email is required"),
     const singup = {
         name: username,
         emaill: email,
-        email: email_status,
     }
    // const accessToken = generateAccessToken(singup)
     //const refreshtoken = jwt.sign(singup, process.env.REFRESH_TOKEN_SECRET)
