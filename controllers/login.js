@@ -65,6 +65,7 @@ function(req, response) {
                 }else{
                     sweetalert.fire('Logged in'); 
                    // response.status('200')
+                
                     response.json({status:'200', accessToken:accessToken , msg:"Login sucessful", refreshToken: refreshToken})
                    // response.redirect('/home'); 
                 }

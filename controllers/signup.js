@@ -17,8 +17,6 @@ const multer = require('multer');
 router.use(bodyParser.urlencoded({extended: true}));
 router.use(bodyParser.json()); 
 
-let refreshTokens = []
-
 
 
 var storage =  multer.diskStorage({
@@ -71,7 +69,7 @@ check('email').notEmpty().withMessage("email is required"),
     }
    // const accessToken = generateAccessToken(singup)
     //const refreshtoken = jwt.sign(singup, process.env.REFRESH_TOKEN_SECRET)
-      refreshTokens.push(refreshtoken) 
+     
     
      db.signup(req.body.username,req.body.email,req.body.password,email_status,); 
     
@@ -131,16 +129,6 @@ function generateAccessToken(singup)  {
     return jwt.sign(singup, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '15s'})
 }
 
-
-router.post('/token', (req,res) => {
-    const refreshToken = req.body.token
-    if(refreshToken == null) return res.sendStatus(401)
-    if(!refreshTokens.includes(refreshToken)) return res.sendStatus(403)
-    jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, singup ) => {
-        const accessToken = generateAccessToken({ name: singup.name})
-        res.json({ accessToken: accessToken})
-    })
-})
 
 
 
