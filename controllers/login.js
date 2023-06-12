@@ -56,9 +56,9 @@ function(req, response) {
         con.query('select * from users where username = ? and password = ? ', [username, password],
         function(eror, results, fielsds){
             if(results.length>0){
-                req.session.loggedin = true;
-                req.session.username = username;
-                response.cookie('username', username); 
+               // req.session.loggedin = true;
+                //req.session.username = username;
+                //response.cookie('username', username); 
                 var status = results[0].email_status
                 if(status=="not_verified"){
                   response.send("please verify your emai")
