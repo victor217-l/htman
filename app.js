@@ -42,7 +42,7 @@ server.listen(PORT, () => console.log(`server runing on port ${PORT}`))
 //> require('crypto').randomBytes(64).toString('hex')
 
 app.get('/', (req,res) => {
-    res.json({msg:"server"})
+    res.send( "server");
 })
 
 app.use('/signup',signup)
