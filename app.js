@@ -12,6 +12,8 @@ var expressValidator = require('express-validator');
 var sweetalert = require('sweetalert2');
 var jwt = require('jsonwebtoken')
 
+var mysql = require('mysql');
+
 var sweetarlert = require('sweetalert2')//to give a customized alert
 var bodyParser = require('body-parser');
 const http = require('http');
