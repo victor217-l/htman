@@ -41,7 +41,7 @@ server.listen(PORT, () => console.log(`server runing on port ${PORT}`))
 
 //> require('crypto').randomBytes(64).toString('hex')
 
-app.get('/', (req,res) => {
+app.get('/api', (req,res) => {
     res.send( "server");
 })
 
