@@ -70,7 +70,7 @@ var con = mysql.createConnection({
  // }))
 
 
-app.post('/login' , [check('username').notEmpty().withMessage("username is reqired"),
+app.post('/api/login' , [check('username').notEmpty().withMessage("username is reqired"),
 check('password').notEmpty().withMessage("Password is required") ],
 function(req, response) {
     const errors = validationResult(req);
