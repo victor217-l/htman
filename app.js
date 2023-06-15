@@ -106,13 +106,13 @@ function(req, response) {
               response.status(200).json({ status: 200, accessToken: accessToken, msg: 'Login successful', refreshToken: refreshToken });
             }
           } else {
-            response.send('Incorrect username/password');
+            response.status(500).json({msg:'Incorrect username/password'});
           }
-          response.end();
+         
         });
       } else {
-        response.send('Please enter your username and password');
-        response.end();
+        response.status(500).json({msg:'Please enter your username and password'});
+        
       }
       
 
