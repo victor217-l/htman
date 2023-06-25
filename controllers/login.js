@@ -83,6 +83,8 @@ function(req, res) {
   // }
 
     if (username && password) {
+      new Promise((resolve, reject) => {
+
       pool.getConnection(async (err, connection) => {
               if(err) throw err
               connection.query('SELECT * FROM users WHERE username = ? AND password = ?', [username, password], async (error, results,) => {
@@ -101,7 +103,16 @@ function(req, res) {
           } else {
             res.statusCode = 500;
             res.json({msg:'Incorrect username/password'});
-          }
+          } 
+
+          if (err) {
+                        return resolve({ status: false });
+                    } else {
+                        return resolve({ status: true, data: rows });
+                    }
+
+
+        })
   
           //         if (err) {
           //             return resolve({ status: false });
