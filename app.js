@@ -70,6 +70,88 @@ var con = mysql.createConnection({
  // }))
 
 
+// app.post('/api/login' , [check('username').notEmpty().withMessage("username is reqired"),
+// check('password').notEmpty().withMessage("Password is required") ],
+// function(req, response) {
+//     const errors = validationResult(req);
+//     if(!errors.isEmpty()){
+//         return response.status(422).json({errors: errors.array()});
+//     }
+//     var username = req.body.username;
+//     var password = req.body.password;
+//     console.log(username);
+
+//     const loginn = {
+//         name: username,
+//         passwrod: password,
+//     }
+
+//     const accessToken = generateAccessToken(loginn);
+//     const refreshToken = jwt.sign(loginn, process.env.ACCESS_TOKEN_SECRET,)
+
+//     if (username && password) {
+//         con.query('SELECT * FROM users WHERE username = ? AND password = ?', [username, password], function(error, results, fields) {
+//           if (error) {
+//             console.error('Error executing the query:', error);
+//             response.status(500).send('Internal Server Error');
+//             return;
+//           }
+      
+//           if (results.length > 0) {
+//             var status = results[0].email_status;
+//             if (status === 'not_verified') {
+//               response.send('Please verify your email');
+//             } else {
+//               sweetalert.fire('Logged in');
+//               response.status(200).json({ status: 200, accessToken: accessToken, msg: 'Login successful', refreshToken: refreshToken });
+//             }
+//           } else {
+//             response.status(500).json({msg:'Incorrect username/password'});
+//           }
+         
+//         });
+//       } else {
+//         response.status(500).json({msg:'Please enter your username and password'});
+        
+//       }
+      
+
+//     // if(username && password){
+//     //     con.query('select * from users where username = ? and password = ? ', [username, password],
+//     //     function(error, results, fielsds){
+//     //         if (error) {
+//     //             console.error('Error executing the query:', error);
+//     //             response.status(500).send('Internal Server Error');
+//     //             return
+//     //         }
+//     //         if(results.length>0){
+//     //            // req.session.loggedin = true;
+//     //             //req.session.username = username;
+//     //             //response.cookie('username', username); 
+//     //             var status = results[0].email_status
+//     //             if(status=="not_verified"){
+//     //               response.send("please verify your emai")
+//     //             }else{
+//     //                 sweetalert.fire('Logged in'); 
+//     //                // response.status('200')
+                
+//     //                 response.status(200).json({ accessToken:accessToken , msg:"Login sucessful", refreshToken: refreshToken})
+//     //                // response.redirect('/home'); 
+//     //             }
+//     //         }else{
+//     //             response.send("incorrect Username/password");
+//     //         }
+//     //         response.end();  
+//     //     })
+//     // }else{
+//     //     response.send("please enter your username and password")
+//     //     response.end();  
+//     // }
+// }
+
+
+
+// )
 
 
 app.use('/signup',signup)
