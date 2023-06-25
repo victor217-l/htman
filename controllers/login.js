@@ -47,7 +47,7 @@ let refreshTokens = []
 
 
 router.post('/' , [check('username').notEmpty().withMessage("username is reqired"),
-check('password').notEmpty().withMessage("Password is required") ], async,
+check('password').notEmpty().withMessage("Password is required") ],
   async function(req, res) {
   
     const errors = validationResult(req);
