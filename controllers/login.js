@@ -84,45 +84,73 @@ function(req, res) {
 
     if (username && password) {
       new Promise((resolve, reject) => {
-
-      pool.getConnection(async (err, connection) => {
-              if(err) throw err
-              connection.query('SELECT * FROM users WHERE username = ? AND password = ?', [username, password], async (error, results,) => {
-                  connection.release() // return the connection to pool      
-         
-           if (results.length > 0) {
-            var status = results[0].email_status;
-            if (status === 'not_verified') {
-              res.statusCode = 500;
-              res.json({msg:'Please verify your email'});
-            } else {
-              //sweetalert.fire('Logged in');
-              res.statusCode = 200;
-              res.json({ status: 200, accessToken: accessToken, msg: 'Login successful', refreshToken: refreshToken });
-            }
-          } else {
-            res.statusCode = 500;
-            res.json({msg:'Incorrect username/password'});
-          } 
-
+        pool.getConnection((err, connection) => {
           if (err) {
-                        return resolve({ status: false });
-                    } else {
-                        return resolve({ status: true, data: rows });
-                    }
+            return reject(err);
+          }
+          
+          connection.query('SELECT * FROM users WHERE username = ? AND password = ?', [username, password], (error, results) => {
+            connection.release(); // return the connection to pool
+            
+            if (error) {
+              return reject(error);
+            }
+            
+            if (results.length > 0) {
+              var status = results[0].email_status;
+              if (status === 'not_verified') {
+                return resolve({ status: 500, msg: 'Please verify your email' });
+              } else {
+                return resolve({ status: 200, accessToken: accessToken, msg: 'Login successful', refreshToken: refreshToken });
+              }
+            } else {
+              return resolve({ status: 500, msg: 'Incorrect username/password' });
+            }
+          });
+        });
+      })
+      .then((response) => {
+        res.statusCode = response.status;
+        res.json(response);
+      })
+      .catch((error) => {
+        res.statusCode = 500;
+        res.json({ msg: 'An error occurred' });
+        console.error(error);
+      });
+      
+      // new Promise((resolve, reject) => {
+      // pool.getConnection(async (err, connection) => {
+      //         if(err) throw err
+      //         connection.query('SELECT * FROM users WHERE username = ? AND password = ?', [username, password], async (error, results,) => {
+      //             connection.release() // return the connection to pool      
+         
+      //      if (results.length > 0) {
+      //       var status = results[0].email_status;
+      //       if (status === 'not_verified') {
+      //         res.statusCode = 500;
+      //         res.json({msg:'Please verify your email'});
+      //       } else {
+      //         //sweetalert.fire('Logged in');
+      //         res.statusCode = 200;
+      //         res.json({ status: 200, accessToken: accessToken, msg: 'Login successful', refreshToken: refreshToken });
+      //       }
+      //     } else {
+      //       res.statusCode = 500;
+      //       res.json({msg:'Incorrect username/password'});
+      //     } 
+
+      //     if (err) {
+      //                   return resolve({ status: false });
+      //               } else {
+      //                   return resolve({ status: true, data: rows });
+      //               }
 
 
-        })
+      //   })
   
-          //         if (err) {
-          //             return resolve({ status: false });
-          //         } else {
-          //             return resolve({ status: true, data: rows });
-          //         }
-          //     })
-          // });
-    //  });
-        }) } )
+         
+      //   }) } )
 
         }
       //   con.query('SELECT * FROM users WHERE username = ? AND password = ?', [username, password], function(error, results, fields) {
