@@ -66,83 +66,37 @@ function(req, res) {
     const accessToken = generateAccessToken(loginn);
     const refreshToken = jwt.sign(loginn, process.env.ACCESS_TOKEN_SECRET,)
 
-  //   var check_email = (email) => {
-  //     return new Promise((resolve, reject) => {
-  //         pool.getConnection(async (err, connection) => {
-  //             if(err) throw err
-  //             connection.query('SELECT * FROM account_details WHERE email = ?;', [ email ], async (err, rows) => {
-  //                 connection.release() // return the connection to pool
   
-  //                 if (err) {
-  //                     return resolve({ status: false });
-  //                 } else {
-  //                     return resolve({ status: true, data: rows });
-  //                 }
-  //             })
-  //         });
-  //     });
-  // }
+ 
 
-
-  const connectionConfig = {
-    host: 'localhost',
-    user: 'your_user',
-    password: '',
-    database: 'hmsystem',
-    connectTimeout: 30000, // Set a higher timeout value (in milliseconds)
-  };
-  
-  const pool = mysql.createPool(connectionConfig);
-  
-  // Rest of your code
-  
-  new Promise((resolve, reject) => {
-    pool.getConnection((err, connection) => {
-      if (err) {
-        return reject(err);
-      }
-      
-      // Rest of your code
-    });
-  })
-  .then((response) => {
-    res.statusCode = response.status;
-    res.json(response);
-  })
-  .catch((error) => {
-    res.statusCode = 500;
-    res.json({ msg: 'An error occurred' });
-    console.error(error);
-  });
-  
 
     if (username && password) {
      // new Promise((resolve, reject) => {
-        pool.getConnection((err, connection) => {
-          if (err) {
-            return json(err);
-          }
+      //   pool.getConnection((err, connection) => {
+      //     if (err) {
+      //       return json(err);
+      //     }
           
-          connection.query('SELECT * FROM users WHERE username = ? AND password = ?', [username, password], (error, results) => {
-            connection.release(); // return the connection to pool
+      //     connection.query('SELECT * FROM users WHERE username = ? AND password = ?', [username, password], (error, results) => {
+      //       connection.release(); // return the connection to pool
             
-            if (error) {
-              return reject(error);
-            }
+      //       if (error) {
+      //         return reject(error);
+      //       }
             
-            if (results.length > 0) {
-              var status = results[0].email_status;
-              if (status === 'not_verified') {
-                return json({ status: 500, msg: 'Please verify your email' });
-              } else {
-                return json({ status: 200, accessToken: accessToken, msg: 'Login successful', refreshToken: refreshToken });
-              }
-            } else {
-              return json({ status: 500, msg: 'Incorrect username/password' });
-            }
-          });
-        });
-      //})
+      //       if (results.length > 0) {
+      //         var status = results[0].email_status;
+      //         if (status === 'not_verified') {
+      //           return json({ status: 500, msg: 'Please verify your email' });
+      //         } else {
+      //           return json({ status: 200, accessToken: accessToken, msg: 'Login successful', refreshToken: refreshToken });
+      //         }
+      //       } else {
+      //         return json({ status: 500, msg: 'Incorrect username/password' });
+      //       }
+      //     });
+      //   });
+      // //})
       // .then((response) => {
       //   res.statusCode = response.status;
       //   res.json(response);
@@ -187,38 +141,35 @@ function(req, res) {
          
       //   }) } )
 
-       
-      }
-
-      //   con.query('SELECT * FROM users WHERE username = ? AND password = ?', [username, password], function(error, results, fields) {
-      //     if (error) {
-      //       console.error('Error executing the query:', error);
-      //       res.statusCode = 500;
-      //       res.send('Internal Server Error');
-      //       return;
-      //     }
+    
+        db.check_username_password(username, password, function(error, results, fields) {
+          if (error) {
+            console.error('Error executing the query:', error);
+            res.statusCode = 500;
+            res.send('Internal Server Error');
+            return;
+          }
       
-      //     if (results.length > 0) {
-      //       var status = results[0].email_status;
-      //       if (status === 'not_verified') {
-      //         res.statusCode = 500;
-      //         res.json({msg:'Please verify your email'});
-      //       } else {
-      //         //sweetalert.fire('Logged in');
-      //         res.statusCode = 200;
-      //         res.json({ status: 200, accessToken: accessToken, msg: 'Login successful', refreshToken: refreshToken });
-      //       }
-      //     } else {
-      //       res.statusCode = 500;
-      //       res.json({msg:'Incorrect username/password'});
-      //     }
-          
-      //   });
-      // } else {
-      //   res.statusCode = 500;
-      //   res.json({msg:'Please enter your username and password'});
-      //  // response.end();
-      // }
+          if (results.length > 0) {
+            var status = results[0].email_status;
+            if (status === 'not_verified') {
+              res.statusCode = 500;
+              res.json({msg:'Please verify your email'});
+            } else {
+              //sweetalert.fire('Logged in');
+              res.statusCode = 200;
+              res.json({ status: 200, accessToken: accessToken, msg: 'Login successful', refreshToken: refreshToken });
+            }
+          } else {
+            res.statusCode = 500;            res.json({msg:'Incorrect username/password'});
+          }
+        
+    })
+      } else {
+        res.statusCode = 500;
+        res.json({msg:'Please enter your username and password'});
+       // response.end();
+      }
       
 
     // if(username && password){
