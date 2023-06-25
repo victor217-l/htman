@@ -49,7 +49,7 @@ let refreshTokens = []
 router.post('/' , [check('username').notEmpty().withMessage("username is reqired"),
 check('password').notEmpty().withMessage("Password is required") ],
 function(req, res) {
-  try{
+  
     const errors = validationResult(req);
     if(!errors.isEmpty()){
        res.statusCode = 422;
@@ -173,9 +173,7 @@ function(req, res) {
       }
       
 
-  }catch(e){
-     res.json({msg: e.toString()})
-  }
+  
     
 
     // if(username && password){
