@@ -21,15 +21,46 @@ const {check, validationResult} = require('express-validator');
 //    database: 'hmsystem'
 // })
 
-const con  = mysql.createPool({
-  // connectionLimit : process.env.CONNECTION_LIMIT,
-   host            : process.env.HOST,
-   user            : process.env.USER,
-   password        : '',
-   database        : process.env.DB_NAME,
-  // charset         : process.env.CHARSET,
-   multipleStatements: true
+const connectionConfig = {
+  host: 'localhost',
+  user: 'your_user',
+  password: '',
+  database: 'hmsystem',
+  connectTimeout: 30000, // Set a higher timeout value (in milliseconds)
+};
+
+const pool = mysql.createPool(connectionConfig);
+
+// Rest of your code
+
+new Promise((resolve, reject) => {
+  pool.getConnection((err, connection) => {
+    if (err) {
+      return reject(err);
+    }
+    
+    // Rest of your code
+  });
+})
+.then((response) => {
+  res.statusCode = response.status;
+  res.json(response);
+})
+.catch((error) => {
+  res.statusCode = 500;
+  res.json({ msg: 'An error occurred' });
+  console.error(error);
 });
+
+// const con  = mysql.createPool({
+//   // connectionLimit : process.env.CONNECTION_LIMIT,
+//    host            : process.env.HOST,
+//    user            : process.env.USER,
+//    password        : '',
+//    database        : process.env.DB_NAME,
+//   // charset         : process.env.CHARSET,
+//    multipleStatements: true
+// });
 
 
 
