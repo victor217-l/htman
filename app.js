@@ -56,12 +56,12 @@ function generateAccessToken(loginn)  {
     return jwt.sign(loginn, process.env.ACCESS_TOKEN_SECRET,)
 }
 
-var con = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'hmsystem'
- })
+// var con = mysql.createConnection({
+//     host: 'localhost',
+//     user: 'root',
+//     password: '',
+//     database: 'hmsystem'
+//  })
  
  // router.use(session({
  //     secret: 'secret',
