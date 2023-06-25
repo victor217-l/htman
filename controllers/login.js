@@ -14,22 +14,22 @@ const {check, validationResult} = require('express-validator');
 
 
 
-// var con = mysql.createConnection({
-//    host: 'localhost',
-//    user: 'root',
-//    password: '',
-//    database: 'hmsystem'
-// })
+var con = mysql.createConnection({
+   host: 'localhost',
+   user: 'root',
+   password: '',
+   database: 'hmsystem'
+})
 
-// const con  = mysql.createPool({
-//   // connectionLimit : process.env.CONNECTION_LIMIT,
-//    host            : process.env.HOST,
-//    user            : process.env.USER,
-//    password        : '',
-//    database        : process.env.DB_NAME,
-//   // charset         : process.env.CHARSET,
-//    multipleStatements: true
-// });
+const con  = mysql.createPool({
+  // connectionLimit : process.env.CONNECTION_LIMIT,
+   host            : process.env.HOST,
+   user            : process.env.USER,
+   password        : '',
+   database        : process.env.DB_NAME,
+  // charset         : process.env.CHARSET,
+   multipleStatements: true
+});
 
 
 
@@ -66,7 +66,7 @@ function(req, res) {
     const refreshToken = jwt.sign(loginn, process.env.ACCESS_TOKEN_SECRET,)
 
     if (username && password) {
-        pool.query('SELECT * FROM users WHERE username = ? AND password = ?', [username, password], function(error, results, fields) {
+        con.query('SELECT * FROM users WHERE username = ? AND password = ?', [username, password], function(error, results, fields) {
           if (error) {
             console.error('Error executing the query:', error);
             res.statusCode = 500;
