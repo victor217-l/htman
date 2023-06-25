@@ -4,22 +4,25 @@ var router = express.Router();
 var bodyParser = require('body-parser');
 
 
-var con = mysql.createConnection({
-    host: '127.0.0.1',//localhost
-    user: 'root',
-    password: '',
-    database: 'hmsystem',
+// var con = mysql.createConnection({
+//     host: '127.0.0.1',//localhost
+//     user: 'root',
+//     password: '',
+//     database: 'hmsystem',
+// });
+
+const pool  = mysql.createPool({
+   // connectionLimit : process.env.CONNECTION_LIMIT,
+    host            : process.env.HOST,
+    user            : process.env.USER,
+    password        : '',
+    database        : process.env.DB_NAME,
+   // charset         : process.env.CHARSET,
+    multipleStatements: true
 });
 
-// const con  = mysql.createPool({
-//    // connectionLimit : process.env.CONNECTION_LIMIT,
-//     host            : process.env.HOST,
-//     user            : process.env.USER,
-//     password        : '',
-//     database        : process.env.DB_NAME,
-//    // charset         : process.env.CHARSET,
-//     multipleStatements: true
-// });
+
+module.exports = pool;
 
 
 
