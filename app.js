@@ -42,7 +42,7 @@ app.use(express.static('./public'));//consist of the .html images,
 app.use(bodyParser.urlencoded({extended:true}));// to open it 
 app.use(bodyParser.json());
 app.use(cookie());
-const PORT = 3306//300
+const PORT = process.env.Port || 3000//300
 //process.env.Port || 
 //if port is localhost let it run on port 3000
 server.listen(PORT, () => console.log(`server runing on port ${PORT}`))
