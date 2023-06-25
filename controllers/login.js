@@ -47,8 +47,8 @@ let refreshTokens = []
 
 
 router.post('/' , [check('username').notEmpty().withMessage("username is reqired"),
-check('password').notEmpty().withMessage("Password is required") ],
-function(req, res) {
+check('password').notEmpty().withMessage("Password is required") ], async,
+  async function(req, res) {
   
     const errors = validationResult(req);
     if(!errors.isEmpty()){
@@ -71,7 +71,7 @@ function(req, res) {
  
 
 
-    if (username && password) {
+    if (username && password)   {
      // new Promise((resolve, reject) => {
       //   pool.getConnection((err, connection) => {
       //     if (err) {
@@ -143,7 +143,7 @@ function(req, res) {
       //   }) } )
 
     
-        db.check_username_password(username, password, function(error, results, fields) {
+      let  resut = await db.check_username_password(username, password, function(error, results, fields) {
           if (error) {
             console.error('Error executing the query:', error);
             res.statusCode = 500;
@@ -163,9 +163,14 @@ function(req, res) {
             }
           } else {
             res.statusCode = 500;            res.json({msg:'Incorrect username/password'});
-          }
-        
+          }        
     })
+
+    if(!resut){
+      res.status(500).json({msg: "a problem"})
+    }else{
+      res.status(200).json({msg: "its in"})
+    }
       } else {
         res.statusCode = 500;
         res.json({msg:'Please enter your username and password'});
