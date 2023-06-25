@@ -37,7 +37,8 @@ check('password').notEmpty().withMessage("Password is required") ],
 function(req, res) {
     const errors = validationResult(req);
     if(!errors.isEmpty()){
-        return response.status(422).json({errors: errors.array()});
+       res.statusCode = 422;
+        return res.json({errors: errors.array()});
     }
     var username = req.body.username;
     var password = req.body.password;
@@ -55,25 +56,30 @@ function(req, res) {
         con.query('SELECT * FROM users WHERE username = ? AND password = ?', [username, password], function(error, results, fields) {
           if (error) {
             console.error('Error executing the query:', error);
-            res.status(500).send('Internal Server Error');
+            res.statusCode = 500;
+            res.send('Internal Server Error');
             return;
           }
       
           if (results.length > 0) {
             var status = results[0].email_status;
             if (status === 'not_verified') {
-              res.status(500).json({msg:'Please verify your email'});
+              res.statusCode = 500;
+              res.json({msg:'Please verify your email'});
             } else {
               //sweetalert.fire('Logged in');
-              res.status(200).json({ status: 200, accessToken: accessToken, msg: 'Login successful', refreshToken: refreshToken });
+              res.statusCode = 200;
+              res.json({ status: 200, accessToken: accessToken, msg: 'Login successful', refreshToken: refreshToken });
             }
           } else {
-            res.status(500).json({msg:'Incorrect username/password'});
+            res.statusCode = 500;
+            res.json({msg:'Incorrect username/password'});
           }
           
         });
       } else {
-        res.status(500).json({msg:'Please enter your username and password'});
+        res.statusCode = 500;
+        res.json({msg:'Please enter your username and password'});
        // response.end();
       }
       
