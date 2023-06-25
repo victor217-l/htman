@@ -21,15 +21,15 @@ var con = mysql.createConnection({
    database: 'hmsystem'
 })
 
-const con  = mysql.createPool({
-  // connectionLimit : process.env.CONNECTION_LIMIT,
-   host            : process.env.HOST,
-   user            : process.env.USER,
-   password        : '',
-   database        : process.env.DB_NAME,
-  // charset         : process.env.CHARSET,
-   multipleStatements: true
-});
+// const con  = mysql.createPool({
+//   // connectionLimit : process.env.CONNECTION_LIMIT,
+//    host            : process.env.HOST,
+//    user            : process.env.USER,
+//    password        : '',
+//    database        : process.env.DB_NAME,
+//   // charset         : process.env.CHARSET,
+//    multipleStatements: true
+// });
 
 
 
