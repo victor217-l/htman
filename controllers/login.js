@@ -14,22 +14,22 @@ const {check, validationResult} = require('express-validator');
 
 
 
-var con = mysql.createConnection({
-   host: 'localhost',
-   user: 'root',
-   password: '',
-   database: 'hmsystem'
-})
+// var con = mysql.createConnection({
+//    host: 'localhost',
+//    user: 'root',
+//    password: '',
+//    database: 'hmsystem'
+// })
 
-// const con  = mysql.createPool({
-//   // connectionLimit : process.env.CONNECTION_LIMIT,
-//    host            : process.env.HOST,
-//    user            : process.env.USER,
-//    password        : '',
-//    database        : process.env.DB_NAME,
-//   // charset         : process.env.CHARSET,
-//    multipleStatements: true
-// });
+const con  = mysql.createPool({
+  // connectionLimit : process.env.CONNECTION_LIMIT,
+   host            : process.env.HOST,
+   user            : process.env.USER,
+   password        : '',
+   database        : process.env.DB_NAME,
+  // charset         : process.env.CHARSET,
+   multipleStatements: true
+});
 
 
 
@@ -65,16 +65,30 @@ function(req, res) {
     const accessToken = generateAccessToken(loginn);
     const refreshToken = jwt.sign(loginn, process.env.ACCESS_TOKEN_SECRET,)
 
+  //   var check_email = (email) => {
+  //     return new Promise((resolve, reject) => {
+  //         pool.getConnection(async (err, connection) => {
+  //             if(err) throw err
+  //             connection.query('SELECT * FROM account_details WHERE email = ?;', [ email ], async (err, rows) => {
+  //                 connection.release() // return the connection to pool
+  
+  //                 if (err) {
+  //                     return resolve({ status: false });
+  //                 } else {
+  //                     return resolve({ status: true, data: rows });
+  //                 }
+  //             })
+  //         });
+  //     });
+  // }
+
     if (username && password) {
-        con.query('SELECT * FROM users WHERE username = ? AND password = ?', [username, password], function(error, results, fields) {
-          if (error) {
-            console.error('Error executing the query:', error);
-            res.statusCode = 500;
-            res.send('Internal Server Error');
-            return;
-          }
-      
-          if (results.length > 0) {
+      pool.getConnection(async (err, connection) => {
+              if(err) throw err
+              connection.query('SELECT * FROM users WHERE username = ? AND password = ?', [username, password], async (error, results,) => {
+                  connection.release() // return the connection to pool      
+         
+           if (results.length > 0) {
             var status = results[0].email_status;
             if (status === 'not_verified') {
               res.statusCode = 500;
@@ -88,13 +102,47 @@ function(req, res) {
             res.statusCode = 500;
             res.json({msg:'Incorrect username/password'});
           }
+  
+          //         if (err) {
+          //             return resolve({ status: false });
+          //         } else {
+          //             return resolve({ status: true, data: rows });
+          //         }
+          //     })
+          // });
+    //  });
+        }) } )
+
+        }
+      //   con.query('SELECT * FROM users WHERE username = ? AND password = ?', [username, password], function(error, results, fields) {
+      //     if (error) {
+      //       console.error('Error executing the query:', error);
+      //       res.statusCode = 500;
+      //       res.send('Internal Server Error');
+      //       return;
+      //     }
+      
+      //     if (results.length > 0) {
+      //       var status = results[0].email_status;
+      //       if (status === 'not_verified') {
+      //         res.statusCode = 500;
+      //         res.json({msg:'Please verify your email'});
+      //       } else {
+      //         //sweetalert.fire('Logged in');
+      //         res.statusCode = 200;
+      //         res.json({ status: 200, accessToken: accessToken, msg: 'Login successful', refreshToken: refreshToken });
+      //       }
+      //     } else {
+      //       res.statusCode = 500;
+      //       res.json({msg:'Incorrect username/password'});
+      //     }
           
-        });
-      } else {
-        res.statusCode = 500;
-        res.json({msg:'Please enter your username and password'});
-       // response.end();
-      }
+      //   });
+      // } else {
+      //   res.statusCode = 500;
+      //   res.json({msg:'Please enter your username and password'});
+      //  // response.end();
+      // }
       
 
     // if(username && password){
@@ -128,11 +176,7 @@ function(req, res) {
     //     response.send("please enter your username and password")
     //     response.end();  
     // }
-}
-
-
-
-)
+})
 
 function generateAccessToken(loginn)  {
     return jwt.sign(loginn, process.env.ACCESS_TOKEN_SECRET,)
