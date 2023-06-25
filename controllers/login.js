@@ -148,10 +148,11 @@ function(req, res) {
         res.json(response);
       })
       .catch((error) => {
+        console.error(error);
         res.statusCode = 500;
         res.json({ msg: 'An error occurred' });
-        console.error(error);
       });
+      
       
       // new Promise((resolve, reject) => {
       // pool.getConnection(async (err, connection) => {
