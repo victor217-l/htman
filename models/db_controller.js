@@ -30,7 +30,7 @@ pool.getConnection((err, conn) => {
 
 
 
-module.exports = pool;
+module.exports = pool.promise();
 
 
 
