@@ -48,7 +48,7 @@ let refreshTokens = []
 
 router.post('/' , [check('username').notEmpty().withMessage("username is reqired"),
 check('password').notEmpty().withMessage("Password is required") ], 
-function(req, res) {
+  async (req, res)  => {
   
     const errors = validationResult(req);
     if(!errors.isEmpty()){
@@ -143,7 +143,7 @@ function(req, res) {
       //   }) } )
 
     
-       db.check_username_password(username, password, function(error, results, fields) {
+      await  db.check_username_password(username, password, function(error, results, fields) {
           if (error) {
             console.error('Error executing the query:', error);
             res.statusCode = 500;
