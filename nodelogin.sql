@@ -2,7 +2,7 @@
 -- version 5.0.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
+-- Host: 127.0.0.
 -- Generation Time: Mar 16, 2020 at 12:41 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.1
@@ -28,16 +28,16 @@ SET time_zone = "+00:00";
 -- Table structure for table `appointment`
 --
 
-CREATE TABLE `appointment` (
-  `id` int(10) NOT NULL,
-  `patient_name` varchar(255) NOT NULL,
-  `department` varchar(255) NOT NULL,
-  `doctor_name` varchar(255) NOT NULL,
-  `date` varchar(255) NOT NULL,
-  `time` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `phone` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+-- CREATE TABLE `appointment` (
+--   `id` int(10) NOT NULL,
+--   `patient_name` varchar(255) NOT NULL,
+--   `department` varchar(255) NOT NULL,
+--   `doctor_name` varchar(255) NOT NULL,
+--   `date` varchar(255) NOT NULL,
+--   `time` varchar(255) NOT NULL,
+--   `email` varchar(255) NOT NULL,
+--   `phone` varchar(20) NOT NULL
+-- ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `appointment`
