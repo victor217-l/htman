@@ -11,15 +11,25 @@ var bodyParser = require('body-parser');
 //     database: 'hmsystem',
 // });
 
-const pool  = mysql.createPool({
-   // connectionLimit : process.env.CONNECTION_LIMIT,
-    host            : process.env.HOST,
-    user            : process.env.DB_USERNAME,
-    password        : '',
-    database        : process.env.DB_DBNAME,
-   // charset         : process.env.CHARSET,
-    multipleStatements: true,
-    connectionTimeout: 20000, 
+// const pool  = mysql.createPool({
+//    // connectionLimit : process.env.CONNECTION_LIMIT,
+//     host            : process.env.HOST,
+//     user            : process.env.DB_USERNAME,
+//     password        : '',
+//     database        : process.env.DB_DBNAME,
+//    // charset         : process.env.CHARSET,
+//     multipleStatements: true,
+//     connectionTimeout: 20000, 
+// });
+
+const pool = mysql.createPool({
+  host: process.env.DB_HOST, 
+  user: process.env.DB_USERNAME, 
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_DBNAME,
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0
 });
 
 
