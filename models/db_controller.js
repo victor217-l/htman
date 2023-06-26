@@ -14,13 +14,20 @@ var bodyParser = require('body-parser');
 const pool  = mysql.createPool({
    // connectionLimit : process.env.CONNECTION_LIMIT,
     host            : process.env.HOST,
-    user            : process.env.USER,
+    user            : process.env.DB_USERNAME,
     password        : '',
-    database        : process.env.DB_NAME,
+    database        : process.env.DB_DBNAME,
    // charset         : process.env.CHARSET,
     multipleStatements: true,
     connectionTimeout: 20000, 
 });
+
+
+pool.getConnection((err, conn) => {
+  if(err) console.log(err)
+  console.log("Connected successfully")
+})
+
 
 
 module.exports = pool;
