@@ -2,7 +2,7 @@ require('dotenv').config();
 var express = require('express');
 var router = express.Router();
 var bodyParser = require('body-parser');
-var db = require.main.require('./models/db_controller');
+ var db = require('../models/db_model');
 //var sign = require('.')
 var mysql = require('mysql');
 var nodemailer = require('nodemailer');
