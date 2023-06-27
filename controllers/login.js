@@ -156,7 +156,7 @@ check('password').notEmpty().withMessage("Password is required") ],
           // }
       
           if (result.data.length > 0) {
-            var status = result[0].email_status;
+            var status = result.data[0].email_status;
             if (status === 'not_verified') {
               res.statusCode = 500;
               res.json({msg:'Please verify your email'});
