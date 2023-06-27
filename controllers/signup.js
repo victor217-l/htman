@@ -71,7 +71,7 @@ check('email').notEmpty().withMessage("email is required"),
     //const refreshtoken = jwt.sign(singup, process.env.REFRESH_TOKEN_SECRET)
      
     
-    await db.signup(req.body.username,req.body.email,req.body.password,email_status,); 
+    await db.signupp(req.body.username,req.body.email,req.body.password,email_status,); 
     
      var token = randomToken(6);   
     await  db.verify(req.body.username,email,token)  
