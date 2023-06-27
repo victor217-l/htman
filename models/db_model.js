@@ -71,7 +71,7 @@ var getuserid = ( email, callback) => {
 }
 
 
-module.exports.check_username_password  = (username,password) => {
+var check_username_password  = (username,password) => {
     return new Promise((resolve, reject) => {
         pool.getConnection(async (err, connection) => {
             if(err) throw err
@@ -95,5 +95,7 @@ module.exports = {
     signup,
     verify,
     getuserid,
+    check_username_password
+    
 
 }
