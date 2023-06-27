@@ -27,6 +27,7 @@ var signup = (username, email, password, email_status) => {
 var signupp = (username,email,password,email_status) => {
   return new Promise((resolve,reject) => {
     pool.getConnection((async(err,connection)  => {
+        if(err)throw err
         connection.query("Insert into users(`username`,`email`,`password`,`email_status`) values(?,?,?,?)", [username,email,password,email_status],  async (err,rows) => {
             connection.release();
 
@@ -110,6 +111,7 @@ var check_username_password  = (username,password) => {
 
 module.exports = {
     signup,
+    signupp,
     verify,
     getuserid,
     check_username_password
