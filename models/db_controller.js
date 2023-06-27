@@ -92,23 +92,7 @@ module.exports.signup = function(username, email,password,status,callback){
   
 
 
-module.exports.check_username_password  = (username,password) => {
-    return new Promise((resolve, reject) => {
-        pool.getConnection(async (err, connection) => {
-            if(err) throw err
-            connection.query('SELECT * FROM users WHERE username = ? & password = ?;', [ username,password ], async (err, rows) => {
-                connection.release() // return the connection to pool
 
-                if (err) {
-                    return resolve({ status: false });
-                } else {
-                    console.log(username)
-                    return resolve({ status: true, data: rows });
-                }
-            })
-        });
-    });
-}
 
 
 //con.query('SELECT * FROM users WHERE username = ? AND password = ?',

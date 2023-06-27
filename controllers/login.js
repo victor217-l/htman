@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var bodyParser = require('body-parser');
-var db = require.main.require('./models/db_controller');
+var db = require('../models/db_model');
 //var pool = require('../models/db_controller')
 //var sign = require('.')
 var mysql = require('mysql');
@@ -166,14 +166,13 @@ check('password').notEmpty().withMessage("Password is required") ],
             res.statusCode = 500;     
             res.json({msg:'Incorrect username/password'});
           }        
-    })
+        })
 
-    
-      } else {
+     } else {
         res.statusCode = 500;
         res.json({msg:'Please enter your username and password'});
        // response.end();
-      }
+    }
       
 
   
