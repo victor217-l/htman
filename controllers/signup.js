@@ -139,7 +139,6 @@ check('email').notEmpty().withMessage("email is required"),
 
 
         }
-
      }
 
     
