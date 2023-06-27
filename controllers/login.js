@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var bodyParser = require('body-parser');
-var db = require('../models/db_model');
+var db_query = require('../models/db_model');
 //var pool = require('../models/db_controller')
 //var sign = require('.')
 var mysql = require('mysql');
@@ -143,7 +143,7 @@ check('password').notEmpty().withMessage("Password is required") ],
       //   }) } )
 
     
-    let result =  await  db.check_username_password(username, password)
+    let result =  await  db_query.check_username_password(username, password)
     if(result.status == false){
       res.statusCode = 500;
       res.json({ status: 'error_occured' });
