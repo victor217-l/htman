@@ -48,7 +48,7 @@ var storage = multer.diskStorage({
 router.post('/' ,[check('username').notEmpty().withMessage("username is required"),
 check('password').notEmpty().withMessage("password is required"),
 check('email').notEmpty().withMessage("email is required"),
-], function (req,res) {
+], async function (req,res) {
     // res.setHeader('Access-Control-Allow-Origin', process.env.URL);
     // res.setHeader('Access-Control-Allow-Methods', 'POST');
     // res.setHeader("Access-Control-Allow-Headers", 'Origin, X-Requested-With, Content-Type, Authorization, Accept');
@@ -71,13 +71,19 @@ check('email').notEmpty().withMessage("email is required"),
     //const refreshtoken = jwt.sign(singup, process.env.REFRESH_TOKEN_SECRET)
      
     
-     db.signup(req.body.username,req.body.email,req.body.password,email_status,); 
+    await db.signup(req.body.username,req.body.email,req.body.password,email_status,); 
     
      var token = randomToken(6);   
-    db.verify(req.body.username,email,token)  
+    await  db.verify(req.body.username,email,token)  
       
-    db.getuserid(email, function(err, result){
-        var id = result[0].id;
+  let result = await db.getuserid(email)
+
+  if(result == false){
+    res.statusCode = 500;
+    res.json({msg: "error "})
+  }else if (result == true){
+    if(result.data>0){
+        var id = result.data[0].id;
         var output = `<p> Dear ${username}, </p>
         <p> Thanks for sign up. Your verification id 
         and token is given below; </p> 
@@ -118,8 +124,9 @@ check('email').notEmpty().withMessage("email is required"),
        // res.send("check your email for token to verify")
         res.json({status: "check your email to  verify", })
         
-    })
-    
+    }
+  }
+   
 
 
 });
