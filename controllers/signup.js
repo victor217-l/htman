@@ -75,14 +75,14 @@ check('email').notEmpty().withMessage("email is required"),
      if(result1 == false){
         res.statusCode = 500;
         res.json({msg: "Invalid credentials"})
-     }else{
+     }else if(result1 === true){
         var token = randomToken(6);   
         let result2 = await  db.verify(req.body.username,email,token);
        
         if(result2 == false){
             res.statusCode = 500;
             res.json({msg:"Invalid credentials"})
-        }else{
+        }else if (result2 === true){
 
                 
   let result = await db.getuserid(email)
