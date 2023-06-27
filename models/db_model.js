@@ -52,7 +52,7 @@ var signupp = (username,email,password,email_status) => {
             pool.getConnection(async (err, connection) => {
                 if(err) throw err
              
-                connection.query('INSERT INTO verify(username, email, token,) VALUES(?,?,?,?,)', [username, email,token, callback], async (err, rows) => {
+                connection.query('INSERT INTO verify(username, email, token,) VALUES(?,?,?,?,)', [username, email,token,], async (err, rows) => {
                     connection.release() // return the connection to pool
     
                     if (err) {
@@ -72,7 +72,7 @@ var getuserid = ( email, callback) => {
         pool.getConnection(async (err, connection) => {
             if(err) throw err
          
-            connection.query('SELECT * FROM verify WHERE email =  ?', [ email, callback], async (err, rows) => {
+            connection.query('SELECT * FROM verify WHERE email =  ?', [ email], async (err, rows) => {
                 connection.release() // return the connection to pool
 
                 if (err) {
