@@ -159,6 +159,7 @@ check('password').notEmpty().withMessage("Password is required") ],
             } else {
               //sweetalert.fire('Logged in');
               res.statusCode = 200;
+              console.log(accessToken)
               res.json({ status: 200, accessToken: accessToken, msg: 'Login successful', refreshToken: refreshToken });
             }
           } else {
