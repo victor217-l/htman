@@ -155,7 +155,7 @@ check('password').notEmpty().withMessage("Password is required") ],
           //   return;
           // }
       
-          if (result.length > 0) {
+          if (result.data.length > 0) {
             var status = result[0].email_status;
             if (status === 'not_verified') {
               res.statusCode = 500;
