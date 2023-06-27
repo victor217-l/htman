@@ -143,16 +143,20 @@ check('password').notEmpty().withMessage("Password is required") ],
       //   }) } )
 
     
-      await  db.check_username_password(username, password, function(error, results, fields) {
-          if (error) {
-            console.error('Error executing the query:', error);
-            res.statusCode = 500;
-            res.send('Internal Server Error');
-            return;
-          }
+    let result =  await  db.check_username_password(username, password)
+    if(result.status == false){
+      res.statusCode = 500;
+      res.json({ status: 'error_occured' });
+    }else if (result.status === true){ 
+          // if (error) {
+          //   console.error('Error executing the query:', error);
+          //   res.statusCode = 500;
+          //   res.send('Internal Server Error');
+          //   return;
+          // }
       
-          if (results.length > 0) {
-            var status = results[0].email_status;
+          if (result.length > 0) {
+            var status = result[0].email_status;
             if (status === 'not_verified') {
               res.statusCode = 500;
               res.json({msg:'Please verify your email'});
@@ -166,7 +170,9 @@ check('password').notEmpty().withMessage("Password is required") ],
             res.statusCode = 500;     
             res.json({msg:'Incorrect username/password'});
           }        
-        })
+        }
+
+      
 
      } else {
         res.statusCode = 500;
