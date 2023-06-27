@@ -102,6 +102,7 @@ module.exports.check_username_password  = (username,password) => {
                 if (err) {
                     return resolve({ status: false });
                 } else {
+                    console.log(username)
                     return resolve({ status: true, data: rows });
                 }
             })
