@@ -24,10 +24,6 @@ var signup = (username, email, password, email_status) => {
 
 
 
-//module.exports.verify = function(username, email,token, callback) {
-    //     var query = "INSERT INTO `verify`(`username`,`email`,`token`)VALUES ('"+username+"', '"+email+"', '"+token+"')" 
-    //    con.query(query,callback) 
-    // } 
 
     var verify = (username, email,token, callback) => {
         return new Promise((resolve, reject) => {
@@ -47,10 +43,7 @@ var signup = (username, email, password, email_status) => {
         });
     }
     
-    // module.exports.getuserid = function(email,callback){
-//     var query = "SELECT * FROM `verify` WHERE email = '"+email+"'"
-//   con.query(query.callback) 
-// }
+  
 
 var getuserid = ( email, callback) => {
     return new Promise((resolve, reject) => {
@@ -75,11 +68,11 @@ var check_username_password  = (username,password) => {
     return new Promise((resolve, reject) => {
         pool.getConnection(async (err, connection) => {
             if(err) throw err
-            connection.query('SELECT * FROM users WHERE username = ? & password = ?;', [ username,password ], async (err, rows) => {
+            connection.query('SELECT * FROM users WHERE username = ? and password = ?;', [ username,password ], async (err, rows) => {
                 connection.release() // return the connection to pool
 
                 if (err) {
-                    return resolve({ status: false });
+                    return resolve({ status: false,  });
                 } else {
                     console.log(username)
                     return resolve({ status: true, data: rows });

@@ -168,7 +168,7 @@ check('password').notEmpty().withMessage("Password is required") ],
             }
           } else {
             res.statusCode = 500;     
-            res.json({msg:'Incorrect username/password'});
+            res.json({msg:'Incorrect username/password',});
           }        
         }
 
