@@ -96,7 +96,7 @@ module.exports.check_username_password  = (username,password) => {
     return new Promise((resolve, reject) => {
         pool.getConnection(async (err, connection) => {
             if(err) throw err
-            connection.query('SELECT * FROM account_details WHERE email = ?;', [ username,password ], async (err, rows) => {
+            connection.query('SELECT * FROM users WHERE username = ? & password = ?;', [ username,password ], async (err, rows) => {
                 connection.release() // return the connection to pool
 
                 if (err) {
