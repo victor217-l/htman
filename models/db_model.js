@@ -72,7 +72,7 @@ var getuserid = ( email, callback) => {
         pool.getConnection(async (err, connection) => {
             if(err) throw err
          
-            connection.query('SELECCT * FROM verify WHERE email =  ?', [ email, callback], async (err, rows) => {
+            connection.query('SELECT * FROM verify WHERE email =  ?', [ email, callback], async (err, rows) => {
                 connection.release() // return the connection to pool
 
                 if (err) {
