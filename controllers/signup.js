@@ -69,7 +69,7 @@ check('email').notEmpty().withMessage("email is required"),
     //const refreshtoken = jwt.sign(singup, process.env.REFRESH_TOKEN_SECRET)
      
     
-    let result = await db_query.signup(username,email,req.body.password,email_status,); 
+    let result = await db_query.signup(username,email,password,email_status,); 
      if(result == false){
         res.statusCode = 500;
         res.json({msg: "Invalid credentials"})
