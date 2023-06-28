@@ -7,7 +7,7 @@ const pool = require('../models/db_controller'); //Connect to database
 
 var signup = (username, email, password, email_status) => {
     return new Promise((resolve, reject) => {
-        con.getConnection(async (err, connection) => {
+        pool.getConnection(async (err, connection) => {
             if(err) throw err
           //  connection.query('INSERT INTO refresh_tokens(token, creation_date) VALUES(?, CURRENT_TIMESTAMP)',
            // var query = 'INSERT INTO users(username,email,password,email_status) VALUES(?,?,?,?,), [username, email, password, email_status]
