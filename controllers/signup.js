@@ -81,22 +81,20 @@ check('email').notEmpty().withMessage("email is required"),
         res.json({msg: "Invalid credentials"})
      }else if(result.status === true){
         var token = randomToken(6);   
-        let result = await  db_query.verify(username,email,token);
+        let result1 = await  db_query.verify(req.body.username,email,token);
        
-        if(result.status === false){
+        if(result1.status === false){
             res.statusCode = 500;
             res.json({msg:"Invalid credentials"})
        
-        }else if (result.status === true){
+        }else if (result1.status === true){
+                let result2 = await db_query.getuserid(email)
 
-                
-                let result = await db_query.getuserid(email)
-
-  if(result.status === false){
+  if(result2.status === false){
     res.statusCode = 500;
     res.json({msg: "error "})
-  }else if (result.status === true){
-    if(result.data.length>0){
+  }else if (result2.status === true){
+    if(result2.data.length>0){
         var id = result.data[0].id;
         var output = `<p> Dear ${username}, </p>
         <p> Thanks for sign up. Your verification id 
