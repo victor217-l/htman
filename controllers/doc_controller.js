@@ -58,9 +58,8 @@ router.get('/add_doctor',   async function(req,res){
     if(result == false){
          res.statusCode = 500;
          res.json({msg: "Invalid credentials"})
-    }else if(result == true){
-
-        res.statusCode =200;
+    }else if(result === true){
+        res.statusCode = 200;
         res.json({msg: "All doctor", data: list})
     }
 
