@@ -69,10 +69,10 @@ check('email').notEmpty().withMessage("email is required"),
      
     
     let result = await db_query.signup(username,email,password,email_status,); 
-    if(result == false){
+    if(result.status == false){
         res.statusCode = 200;
         res.json({msg:"invalid credentials"})
-    } else if(result == true){
+    } else if(result.status == true){
         res.statusCode = 200;
         res.json({msg: "it is in"})
     }
