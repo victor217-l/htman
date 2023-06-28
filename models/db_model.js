@@ -47,7 +47,7 @@ var signupp = (username,email,password,email_status) => {
 
 
 
-    var verify = (username, email,token, callback) => {
+    var verify = (username, email,token,) => {
         return new Promise((resolve, reject) => {
             pool.getConnection(async (err, connection) => {
                 if(err) throw err
@@ -67,7 +67,7 @@ var signupp = (username,email,password,email_status) => {
     
   
 
-var getuserid = ( email, callback) => {
+var getuserid = ( email) => {
     return new Promise((resolve, reject) => {
         pool.getConnection(async (err, connection) => {
             if(err) throw err
