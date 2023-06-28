@@ -109,11 +109,7 @@ var check_username_password  = (username,password) => {
 }
 
 
-module.exports.getAllDuc = function(callback){
-    var query = "select * from doctor";
-    con.query(query,callback);
-    console.log(query);
-}
+
 
 var  getAllDoc = () => {
     return new Promise((resolve,reject) => {
