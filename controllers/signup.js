@@ -48,7 +48,7 @@ var storage = multer.diskStorage({
 router.post('/' ,[check('username').notEmpty().withMessage("username is required"),
 check('password').notEmpty().withMessage("password is required"),
 check('email').notEmpty().withMessage("email is required"),
-], async function (req,res) {
+], async  (req,res) => {
     // res.setHeader('Access-Control-Allow-Origin', process.env.URL);
     // res.setHeader('Access-Control-Allow-Methods', 'POST');
     // res.setHeader("Access-Control-Allow-Headers", 'Origin, X-Requested-With, Content-Type, Authorization, Accept');
