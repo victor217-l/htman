@@ -59,8 +59,8 @@ router.get('/add_doctor',   async function(req,res){
          res.statusCode = 500;
          res.json({msg: "Invalid credentials"})
     }else if(result.status === true){
-        res.statusCode = 200;
-        res.json({msg: "All doctor", data: list})
+        res.statusCode = 200; 
+        res.json({msg: "All doctor", list: result.data})
     }
 
     // db.getAlldept(function(err,result){
