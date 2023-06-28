@@ -67,20 +67,24 @@ check('email').notEmpty().withMessage("email is required"),
      
     
     let result = await db_query.signup(username,email,password,email_status,); 
-     if(result === false){
-        res.statusCode = 500;
-        res.json({msg: "Invalid credentials"})
-     }else if(result === true){
-       // var token = randomToken(6);   
-        let result = await  db_query.verify(username,email,token);
+    if(result == false){
+        res.statusCode = 200;
+        res.json({msg:"invalid credentials"})
+    } else if(result == true){
+        res.statusCode = 200;
+        res.json({msg: "it is in"})
+    }
+//      if(result === false){
+//         res.statusCode = 500;
+//         res.json({msg: "Invalid credentials"})
+//      }else if(result === true){
+//        // var token = randomToken(6);   
+//         let result = await  db_query.verify(username,email,token);
        
-        if(result === false){
-            res.statusCode = 500;
-            res.json({msg:"Invalid credentials"})
-        }else if(result == true){
-            res.statusCode = 200;
-            res.json({msg: "it is in"})
-        }
+//         if(result === false){
+//             res.statusCode = 500;
+//             res.json({msg:"Invalid credentials"})
+       
 //         }else if (result === true){
 
                 
@@ -141,7 +145,7 @@ check('email').notEmpty().withMessage("email is required"),
 
 
 //         }
-     }
+//      }
 
     
     //  var token = randomToken(6);   
