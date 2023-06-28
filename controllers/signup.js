@@ -66,7 +66,7 @@ check('email').notEmpty().withMessage("email is required"),
     //const refreshtoken = jwt.sign(singup, process.env.REFRESH_TOKEN_SECRET)
      
     
-    let result = await db_query.signup(username,password,email_status,); 
+    let result = await db_query.signup(username,email,password,email_status,); 
      if(result === false){
         res.statusCode = 500;
         res.json({msg: "Invalid credentials"})
@@ -77,66 +77,70 @@ check('email').notEmpty().withMessage("email is required"),
         if(result === false){
             res.statusCode = 500;
             res.json({msg:"Invalid credentials"})
-        }else if (result === true){
+        }else if(result == true){
+            res.statusCode = 200;
+            res.json({msg: "it is in"})
+        }
+//         }else if (result === true){
 
                 
-                let result = await db_query.getuserid(email)
+//                 let result = await db_query.getuserid(email)
 
-  if(result === false){
-    res.statusCode = 500;
-    res.json({msg: "error "})
-  }else if (result === true){
-    if(result.data.length>0){
-        var id = result.data[0].id;
-        var output = `<p> Dear ${username}, </p>
-        <p> Thanks for sign up. Your verification id 
-        and token is given below; </p> 
-        <ui>
-        <li> User ID: ${id}  </li>
-        <li> Token: ${token} </li>
-        </ul>
-        <p>verify link : <a hreft = "http://localhost:3000/verify">Verify </a> </p>
-        <p><b> This is automatically generated mail</b></p>
+//   if(result === false){
+//     res.statusCode = 500;
+//     res.json({msg: "error "})
+//   }else if (result === true){
+//     if(result.data.length>0){
+//         var id = result.data[0].id;
+//         var output = `<p> Dear ${username}, </p>
+//         <p> Thanks for sign up. Your verification id 
+//         and token is given below; </p> 
+//         <ui>
+//         <li> User ID: ${id}  </li>
+//         <li> Token: ${token} </li>
+//         </ul>
+//         <p>verify link : <a hreft = "http://localhost:3000/verify">Verify </a> </p>
+//         <p><b> This is automatically generated mail</b></p>
 
-        `;
+//         `;
 
-        var transporter = nodemailer.createTransport({
-            host: "smtp.gmail.com",
-            port: 465,
-            secure: true,
-            auth: {
-                user: "victoribeojo8@gmail.com",
-                pass:"tjhdefqtnllqsqqm",
-            }
-        });
+//         var transporter = nodemailer.createTransport({
+//             host: "smtp.gmail.com",
+//             port: 465,
+//             secure: true,
+//             auth: {
+//                 user: "victoribeojo8@gmail.com",
+//                 pass:"tjhdefqtnllqsqqm",
+//             }
+//         });
 
         
-        var mailOptions = {
-           from: 'Hms@gmail.com',
-           to:email,
-           subject: 'Email verificarion',
-           html: output
-        };
-        transporter.sendMail(mailOptions, function(err, info){
-            if(err){
-                return console.log(err);          
-        }
-        console.log(info);
-        });
+//         var mailOptions = {
+//            from: 'Hms@gmail.com',
+//            to:email,
+//            subject: 'Email verificarion',
+//            html: output
+//         };
+//         transporter.sendMail(mailOptions, function(err, info){
+//             if(err){
+//                 return console.log(err);          
+//         }
+//         console.log(info);
+//         });
         
     
-       // res.send("check your email for token to verify")
-        res.json({status: "check your email to  verify", })
+//        // res.send("check your email for token to verify")
+//         res.json({status: "check your email to  verify", })
         
-    }else{
-        res.statusCode = 500;
-        res.json({msg: "invalid credentials"})
-    }
-  }
+//     }else{
+//         res.statusCode = 500;
+//         res.json({msg: "invalid credentials"})
+//     }
+//   }
    
 
 
-        }
+//         }
      }
 
     
