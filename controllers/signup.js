@@ -2,7 +2,7 @@ require('dotenv').config();
 var express = require('express');
 var router = express.Router();
 var bodyParser = require('body-parser');
- var db = require('../models/db_model');
+ var db_query = require('../models/db_model');
 //var sign = require('.')
 var mysql = require('mysql');
 var nodemailer = require('nodemailer');
@@ -19,29 +19,29 @@ router.use(bodyParser.json());
 
 
 
-var storage =  multer.diskStorage({
-    destination: function(req, file, cb){
-         cb(null, "public/assets/images/upload_images")
-    },
-    filename: function(req, file, cb){
-        console.log(file);
-        cb(null, file.originalname)
+// var storage =  multer.diskStorage({
+//     destination: function(req, file, cb){
+//          cb(null, "public/assets/images/upload_images")
+//     },
+//     filename: function(req, file, cb){
+//         console.log(file);
+//         cb(null, file.originalname)
 
-    }
-});
+//     }
+// });
 
-var upload = multer({storage:storage});
+// var upload = multer({storage:storage});
 
 
-var storage = multer.diskStorage({
-    destination: function(req, file, cb){
-        cb(null, "public/assets/images/upload_images")
-    }, 
-    filename: function(req, file, cb){
-        console.log(file)
-       cb(null, file.originalname)
-    }
-})
+// var storage = multer.diskStorage({
+//     destination: function(req, file, cb){
+//         cb(null, "public/assets/images/upload_images")
+//     }, 
+//     filename: function(req, file, cb){
+//         console.log(file)
+//        cb(null, file.originalname)
+//     }
+// })
 
 //push to the url of the github respository
 
@@ -62,19 +62,20 @@ check('email').notEmpty().withMessage("email is required"),
     var email_status = "not_verified";
     var email = req.body.email;
     var username = req.body.username;
+    var password = req.body.password;
 
    
    // const accessToken = generateAccessToken(singup)
     //const refreshtoken = jwt.sign(singup, process.env.REFRESH_TOKEN_SECRET)
      
     
-    let result = await db.signup(req.body.username,req.body.email,req.body.password,email_status,); 
+    let result = await db_query.signup(username,email,req.body.password,email_status,); 
      if(result == false){
         res.statusCode = 500;
         res.json({msg: "Invalid credentials"})
      }else if(result === true){
         var token = randomToken(6);   
-        let result = await  db.verify(req.body.username,email,token);
+        let result = await  db_query.verify(username,email,token);
        
         if(result == false){
             res.statusCode = 500;
@@ -82,7 +83,7 @@ check('email').notEmpty().withMessage("email is required"),
         }else if (result === true){
 
                 
-  let result = await db.getuserid(email)
+  let result = await db_query.getuserid(email)
 
   if(result == false){
     res.statusCode = 500;
