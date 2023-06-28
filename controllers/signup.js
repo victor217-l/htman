@@ -63,10 +63,7 @@ check('email').notEmpty().withMessage("email is required"),
     var email = req.body.email;
     var username = req.body.username;
 
-    const singup = {
-        name: username,
-        emaill: email,
-    }
+   
    // const accessToken = generateAccessToken(singup)
     //const refreshtoken = jwt.sign(singup, process.env.REFRESH_TOKEN_SECRET)
      
@@ -133,6 +130,9 @@ check('email').notEmpty().withMessage("email is required"),
        // res.send("check your email for token to verify")
         res.json({status: "check your email to  verify", })
         
+    }else{
+        res.statusCode = 500;
+        res.json({msg: "invalid credentials"})
     }
   }
    
