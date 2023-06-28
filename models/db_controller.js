@@ -146,11 +146,11 @@ module.exports.add_doctor = function(first_name, last_name,email,dob, gender,add
     console.log(query);
 }
 
-module.exports.getAllDoc = function(callback){
-    var query = "select * from doctor";
-    con.query(query,callback);
-    console.log(query);
-}
+// module.exports.getAllDoc = function(callback){
+//     var query = "select * from doctor";
+//     con.query(query,callback);
+//     console.log(query);
+// }
 
 module.exports.getDocbyId = function(id, callback){
     var query = "select * from doctor where id = ?";

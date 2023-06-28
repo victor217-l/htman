@@ -50,7 +50,7 @@ var upload = multer({storage:storage});
 router.use(bodyParser.urlencoded({extended:true}));
 router.use(bodyParser.json());
 
-router.get('/add_doctor', authenticateToken,  async function(req,res){
+router.get('/add_doctor',   async function(req,res){
     // if (req.body){
     //     let form_data = req.body; //Form data from the frontend
 
