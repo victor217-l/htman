@@ -76,26 +76,26 @@ check('email').notEmpty().withMessage("email is required"),
     //     res.statusCode = 200;
     //     res.json({msg: "it is in"})
     // }
-     if(result === false){
+     if(result.status === false){ //status must be there
         res.statusCode = 500;
         res.json({msg: "Invalid credentials"})
-     }else if(result === true){
+     }else if(result.status === true){
        // var token = randomToken(6);   
         let result = await  db_query.verify(username,email,token);
        
-        if(result === false){
+        if(result.status === false){
             res.statusCode = 500;
             res.json({msg:"Invalid credentials"})
        
-        }else if (result === true){
+        }else if (result.status === true){
 
                 
                 let result = await db_query.getuserid(email)
 
-  if(result === false){
+  if(result.status === false){
     res.statusCode = 500;
     res.json({msg: "error "})
-  }else if (result === true){
+  }else if (result.status === true){
     if(result.data.length>0){
         var id = result.data[0].id;
         var output = `<p> Dear ${username}, </p>
