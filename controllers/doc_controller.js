@@ -51,37 +51,7 @@ router.use(bodyParser.urlencoded({extended:true}));
 router.use(bodyParser.json());
 
 router.get('/add_doctor',   async function(req,res){
-    // if (req.body){
-    //     let form_data = req.body; //Form data from the frontend
-
-    //     //Check if the appropriate request parameters are set
-    //     if (form_data.access_token){
-             
-    //         let access_token = sanitize_data(form_data.access_token);
-
-    //         if(/^ *$/.test(access_token)){
-    //             res.statusCode = 401;
-    //             res.json({ status: "missing credentiasm"})
-    //         } else{
-    //             let refresh_token = validate_auth_header(req.header['authorization'])
-
-    //             if (refresh_token == null){
-    //                 res.statusCode = 401;
-    //                 res.json({ status: 'missing_credentialsl' });
-    //             }else{    
-             
-    //         }
-
-    //     }  else{
-    //         res.statusCode = 401;
-    //         res.json({status: "missing credentias"});
-
-    //     }
-    // }
-    // else{
-    //     res.statusCode = 401;
-    //     res.json({status: "missing credentilas"});
-    // }
+    
 
     let result = await db_query.getAllDoc();
 
