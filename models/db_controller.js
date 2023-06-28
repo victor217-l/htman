@@ -48,22 +48,22 @@ module.exports = pool;
 
 
 
-module.exports.signup = function(username, email,password,status,callback){
-    con.query('SELECT email FROM users WHERE email =  "'+email+'" ',
-    function(err, result){
-        console.log(result[0])
-        if(result[0]==undefined){
-            //"insert into `users`(`username`,`email`,`password`,`email_status`) VALUES ('"+username+"', '"+email+"','"+password+"', '"+status+"') "
-          //  connection.query('INSERT INTO refresh_tokens(token, creation_date) VALUES(?, CURRENT_TIMESTAMP)',
-          //'INSERT INTO student_classwork_response(classwork_id, user_id, is_done, attendance_value, response, class_code, score) VALUES(?, ?, ?, ?, ?, ?, ?)', [ classwork_id, user_id, 1, attendance_value, response, class_code, score ],
-            con.query('insert into `users`(`username`,`email`,`password`,`email_status`) VALUES (?,?,?,?)',[ username, email, password, status]);
-            //con.query(query,callback)
-        //console.log(query);
-        }else{ 
-            console.log("error")
-        }
-    })    
-}
+// module.exports.signup = function(username, email,password,status,callback){
+//     con.query('SELECT email FROM users WHERE email =  "'+email+'" ',
+//     function(err, result){
+//         console.log(result[0])
+//         if(result[0]==undefined){
+//             //"insert into `users`(`username`,`email`,`password`,`email_status`) VALUES ('"+username+"', '"+email+"','"+password+"', '"+status+"') "
+//           //  connection.query('INSERT INTO refresh_tokens(token, creation_date) VALUES(?, CURRENT_TIMESTAMP)',
+//           //'INSERT INTO student_classwork_response(classwork_id, user_id, is_done, attendance_value, response, class_code, score) VALUES(?, ?, ?, ?, ?, ?, ?)', [ classwork_id, user_id, 1, attendance_value, response, class_code, score ],
+//             con.query('insert into `users`(`username`,`email`,`password`,`email_status`) VALUES (?,?,?,?)',[ username, email, password, status]);
+//             //con.query(query,callback)
+//         //console.log(query);
+//         }else{ 
+//             console.log("error")
+//         }
+//     })    
+// }
 
 // module.exports.check_username_password = (username, password) => {
 //     return new Promise((resolve, reject) => {

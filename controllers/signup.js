@@ -71,18 +71,18 @@ check('email').notEmpty().withMessage("email is required"),
     //const refreshtoken = jwt.sign(singup, process.env.REFRESH_TOKEN_SECRET)
      
     
-    let result1 = await db.signupp(req.body.username,req.body.email,req.body.password,email_status,); 
-     if(result1 == false){
+    let result = await db.signupp(req.body.username,req.body.email,req.body.password,email_status,); 
+     if(result == false){
         res.statusCode = 500;
         res.json({msg: "Invalid credentials"})
-     }else if(result1 === true){
+     }else if(result === true){
         var token = randomToken(6);   
-        let result2 = await  db.verify(req.body.username,email,token);
+        let result = await  db.verify(req.body.username,email,token);
        
-        if(result2 == false){
+        if(result == false){
             res.statusCode = 500;
             res.json({msg:"Invalid credentials"})
-        }else if (result2 === true){
+        }else if (result === true){
 
                 
   let result = await db.getuserid(email)
