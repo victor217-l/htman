@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var bodyParser = require('body-parser');
-var db_query = require('./models/db_controller');
+var db_query = require('../models/db_model');
 const sanitize_data = require('../utility/sanitize_data.util');
 var multer = require('multer');// for database 
 var jwt = require('jsonwebtoken')
