@@ -49,10 +49,7 @@ router.post('/' ,[check('username').notEmpty().withMessage("username is required
 check('password').notEmpty().withMessage("password is required"),
 check('email').notEmpty().withMessage("email is required"),
 ], async  (req,res) => {
-    // res.setHeader('Access-Control-Allow-Origin', process.env.URL);
-    // res.setHeader('Access-Control-Allow-Methods', 'POST');
-    // res.setHeader("Access-Control-Allow-Headers", 'Origin, X-Requested-With, Content-Type, Authorization, Accept');
-
+    
     const errors = validationResult(req);
     if(!errors.isEmpty()){
         return res.status(422).json({errors: errors.array()})
@@ -74,7 +71,7 @@ check('email').notEmpty().withMessage("email is required"),
         res.statusCode = 500;
         res.json({msg: "Invalid credentials"})
      }else if(result === true){
-        var token = randomToken(6);   
+       // var token = randomToken(6);   
         let result = await  db_query.verify(username,email,token);
        
         if(result === false){
@@ -83,7 +80,7 @@ check('email').notEmpty().withMessage("email is required"),
         }else if (result === true){
 
                 
-  let result = await db_query.getuserid(email)
+                let result = await db_query.getuserid(email)
 
   if(result === false){
     res.statusCode = 500;
