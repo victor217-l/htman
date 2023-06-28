@@ -60,6 +60,8 @@ check('email').notEmpty().withMessage("email is required"),
     var email = req.body.email;
     var username = req.body.username;
     var password = req.body.password;
+    console.log(username);
+    
 
    
    // const accessToken = generateAccessToken(singup)
