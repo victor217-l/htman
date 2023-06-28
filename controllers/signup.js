@@ -70,14 +70,14 @@ check('email').notEmpty().withMessage("email is required"),
      
     
     let result = await db_query.signup(username,email,password,email_status,); 
-     if(result == false){
+     if(result === false){
         res.statusCode = 500;
         res.json({msg: "Invalid credentials"})
      }else if(result === true){
         var token = randomToken(6);   
         let result = await  db_query.verify(username,email,token);
        
-        if(result == false){
+        if(result === false){
             res.statusCode = 500;
             res.json({msg:"Invalid credentials"})
         }else if (result === true){
@@ -85,7 +85,7 @@ check('email').notEmpty().withMessage("email is required"),
                 
   let result = await db_query.getuserid(email)
 
-  if(result == false){
+  if(result === false){
     res.statusCode = 500;
     res.json({msg: "error "})
   }else if (result === true){
