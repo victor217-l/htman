@@ -52,7 +52,7 @@ var signupp = (username,email,password,email_status) => {
             pool.getConnection(async (err, connection) => {
                 if(err) throw err
              
-                connection.query('INSERT INTO verify(username, email, token,) VALUES(?,?,?,?,)', [username, email,token,], async (err, rows) => {
+                connection.query('INSERT INTO verify(username, email, token,) VALUES(?,?,?)', [username, email,token,], async (err, rows) => {
                     connection.release() // return the connection to pool
     
                     if (err) {

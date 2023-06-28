@@ -99,15 +99,15 @@ module.exports = pool;
 
 
 
-module.exports.verify = function(username, email,token, callback) {
-    var query = "INSERT INTO `verify`(`username`,`email`,`token`)VALUES ('"+username+"', '"+email+"', '"+token+"')" 
-   con.query(query,callback) 
-} 
+// module.exports.verify = function(username, email,token, callback) {
+//     var query = "INSERT INTO `verify`(`username`,`email`,`token`)VALUES ('"+username+"', '"+email+"', '"+token+"')" 
+//    con.query(query,callback) 
+// } 
 
-module.exports.getuserid = function(email,callback){
-    var query = "SELECT * FROM verify WHERE email = '"+email+"' "
-  con.query(query, callback) 
-}
+// module.exports.getuserid = function(email,callback){
+//     var query = "SELECT * FROM verify WHERE email = '"+email+"' "
+//   con.query(query, callback) 
+// }
 
 
 module.exports.matchToken = function(id, token, callback){
