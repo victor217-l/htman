@@ -4,7 +4,7 @@ var router = express.Router();
 var bodyParser = require('body-parser');
  var db_query = require('../models/db_model');
 //var sign = require('.')
-var mysql = require('mysql');
+
 var nodemailer = require('nodemailer');
 var jwt = require('jsonwebtoken');
 var randomToken = require('random-token');
@@ -60,7 +60,7 @@ check('email').notEmpty().withMessage("email is required"),
     var email = req.body.email;
     var username = req.body.username;
     var password = req.body.password;
-    //console.log(username);
+    console.log(username);
 
 
    
