@@ -11,7 +11,8 @@ var signup = (username, email, password, email_status) => {
             if(err) throw err
           //  connection.query('INSERT INTO refresh_tokens(token, creation_date) VALUES(?, CURRENT_TIMESTAMP)',
            // var query = 'INSERT INTO users(username,email,password,email_status) VALUES(?,?,?,?,), [username, email, password, email_status]
-            connection.query('INSERT INTO users(`username`, `email`, `password`, `email_status`) VALUES(?,?,?,?);', [username, email, password, email_status], async (err, rows) => {
+           
+            connection.query('INSERT INTO users(`username`, `email`, `password`, `email_status`) VALUES (?, ?, ?, ?)', [username, email, password, email_status], async (err, rows) => {
                 connection.release() // return the connection to pool
 
                 if (err) {
@@ -26,7 +27,7 @@ var signup = (username, email, password, email_status) => {
 
 var signupp = (username,email,password,email_status) => {
   return new Promise((resolve,reject) => {
-    pool.getConnection((async(err,connection)  => {
+    pool.getConnection(async(err,connection)  => {
         if(err)throw err
         connection.query("Insert into users(`username`,`email`,`password`,`email_status`) values(?,?,?,?)", [username,email,password,email_status],  async (err,rows) => {
             connection.release();
@@ -40,7 +41,7 @@ var signupp = (username,email,password,email_status) => {
         }
         )
     }
-    ))
+    )
   })
 }
 
