@@ -80,7 +80,7 @@ check('email').notEmpty().withMessage("email is required"),
         res.statusCode = 500;
         res.json({msg: "Invalid credentials"})
      }else if(result.status === true){
-       // var token = randomToken(6);   
+        var token = randomToken(6);   
         let result = await  db_query.verify(username,email,token);
        
         if(result.status === false){
