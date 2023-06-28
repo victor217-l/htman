@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var bodyParser = require('body-parser');
-var db = require.main.require('./models/db_controller');
+var db_query = require('./models/db_controller');
 const sanitize_data = require('../utility/sanitize_data.util');
 var multer = require('multer');// for database 
 var jwt = require('jsonwebtoken')
@@ -50,7 +50,7 @@ var upload = multer({storage:storage});
 router.use(bodyParser.urlencoded({extended:true}));
 router.use(bodyParser.json());
 
-router.get('/add_doctor', authenticateToken,  function(req,res){
+router.get('/add_doctor', authenticateToken,  async function(req,res){
     // if (req.body){
     //     let form_data = req.body; //Form data from the frontend
 
@@ -83,14 +83,25 @@ router.get('/add_doctor', authenticateToken,  function(req,res){
     //     res.json({status: "missing credentilas"});
     // }
 
-    db.getAlldept(function(err,result){
-        if (err) {
-            return res.sendStatus(500); // Internal Server Error
-          }
+    let result = await db_query.getAllDoc();
+
+    if(result == false){
+         res.statusCode = 500;
+         res.json({msg: "Invalid credentials"})
+    }else if(result == true){
+
+        res.statusCode =200;
+        res.json({msg: "All doctor", data: list})
+    }
+
+    // db.getAlldept(function(err,result){
+    //     if (err) {
+    //         return res.sendStatus(500); // Internal Server Error
+    //       }
       
-        res.json({list:result})
-         // res.render('add_doctor.ejs', {list:result})
-         })
+    //     res.json({list:result})
+    //      // res.render('add_doctor.ejs', {list:result})
+    //      })
 }); 
 
 // function authenicateToken(req, res, next)   {
