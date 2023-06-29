@@ -128,6 +128,32 @@ var getAllDoc  = () => {
 
 
 
+// module.exports.add_doctor = function(first_name, last_name,email,dob, gender,address,phone, image,department,biography, callback){
+//     var query = "insert into `doctor`(`first_name`,`last_name`,`email`,`dob`,`gender`,`address`,`phone`,`image`,`department`,`biography`) VALUES(?,?,?,?,?,?,?,?,?,?)";
+//     var values = [first_name, last_name,email,dob, gender,address,phone, image,department,biography];
+//     con.query(query,values,callback); 
+//     console.log(query);
+// }
+
+
+var add_doctor  = (first_name, last_name,email,dob, gender,address,phone, image,department,biography) => {
+    return new Promise((resolve, reject) => {
+        pool.getConnection(async (err, connection) => {
+            if(err) throw err;
+            connection.query('insert into doctors(`firstname`,`last_name`,`email`,`dob`,`gender``address`,`phone`,`image`,`department`,`biography`) VALUES(?,?,?,?,?,?,?,?,?,?)',[first_name, last_name,email,dob, gender,address,phone, image,department,biography], async (err,rows) => {
+                connection.release();
+                if(err){
+                    return resolve({status: false})
+                }else{
+                    return resolve({status: true, data: rows})
+                }
+            })
+        })
+
+    })
+
+}
+
 
 
 
@@ -140,6 +166,7 @@ module.exports = {
     getuserid,
     check_username_password,
     getAllDoc,
+    add_doctor,
     
 
 }
