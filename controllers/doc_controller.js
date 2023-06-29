@@ -135,7 +135,7 @@ router.post('/edit_doctor/:id', authenticateToken, async function(res,req){
             res.statusCode = 500;
             res.json({msg: "Invalid credentials"})
         }else if(result.status == true){
-          res.statusCode == 200;
+          res.statusCode = 200;
           res.json({msg: "Doctor updated", list: result.data})
         }
 
@@ -154,16 +154,14 @@ router.post('/deletedoctor', authenticateToken, async function(req,res){
     var id = req.body.id;
     let result = await db_query.deletDoc(id);
 
-    if(result.status = false){
-        res.statusCode == 500;
+    if(result.status == false){
+        res.statusCode = 500;
         res.json({msg:"Invalid credentials"})
     }else if(result.status == true){
-        res.statusCode == 200;
+        res.statusCode = 200;
         res.json({msg: "delete doctor ", list: result.data})
 
-    }
-
-    
+    }    
 })
 
 router.get('/', authenticateToken, async function(req,res){
