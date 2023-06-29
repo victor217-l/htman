@@ -107,75 +107,109 @@ router.post('/add_doctor',authenticateToken, upload.single("image"), async funct
 });
 
 
-router.get('/edit_doctor/:id',  authenticateToken, function(req,res){
+router.get('/edit_doctor/:id',  authenticateToken,  async function(req,res){
     var id = req.params.id;
    // let result = db.getusertoken()
-    db.getDocbyId(id, function(err,result){
-        if(err){
-            res.status(500).json({msg: err.toString()})
-        }else{
-            res.json({list: result})
-        }
-       
-       // res.render('edit_doctor.ejs', {list:result})
-    })
+   let result = db_query.getDocbyId(id);
+
+   if(result.status == false){
+     res.statusCode == 500;
+     res.json({msg: "Invalid credentials"})
+   }else if (result.status == true){
+     res.statusCode == 200;
+     res.json({msg: "All doc ", list:result.data})
+
+   }
+    
 });
 
-router.post('/edit_doctor/:id', authenticateToken, function(res,req){
+router.post('/edit_doctor/:id', authenticateToken, async function(res,req){
     var id = req.body.id;
-    db.editDoc(req.body.first_name, req.body,lastname,
+
+    let result = await db_query.editDoc(req.body.first_name, req.body,lastname,
         req.body.email, req.body.dob,req.body.gender, req.body.address ,
         req.body.phone, req.file.filename,req.body.department,
-        req.body.biography, id,
-        function(err,result){
-         if(err)
-         throw err;
-         res.redirect('back');
-        } )   
+        req.body.biography, id);
+
+        if(result.status == false){
+            res.statusCode = 500;
+            res.json({msg: "Invalid credentials"})
+        }else if(result.status == true){
+          res.statusCode == 200;
+          res.json({msg: "Doctor updated", list: result.data})
+        }
+
+     
 }) 
 
-router.get('/deletedoctor', authenticateToken, function(req,res){
+// router.get('/deletedoctor', authenticateToken, function(req,res){
+//     var id = req.body.id;
+//     db.getDocbyId(id, function(err,result){
+//         res.json({status: "200", msg: "doc by id files", list:result })
+//       //  res.render('delete_doctor.ejs', {list:result})
+//     })
+// })
+
+router.post('/deletedoctor', authenticateToken, async function(req,res){
     var id = req.body.id;
-    db.getDocbyId(id, function(err,result){
-        res.json({status: "200", msg: "doc by id files", list:result })
-      //  res.render('delete_doctor.ejs', {list:result})
-    })
+    let result = await db_query.deletDoc(id);
+
+    if(result.status = false){
+        res.statusCode == 500;
+        res.json({msg:"Invalid credentials"})
+    }else if(result.status == true){
+        res.statusCode == 200;
+        res.json({msg: "delete doctor ", list: result.data})
+
+    }
+
+    
 })
 
-router.post('/deletedoctor', authenticateToken, function(req,res){
-    var id = req.body.id;
-    db.deleteDoc(id, function(err,result){
-        if(err){
-            res.status(500).json({status: "200", msg: err.toString()})
-        }else{
-            res.json({status: "200", list:result})
-           // res.render('delete_doctor.ejs', {list:result})
-        }
+router.get('/', authenticateToken, async function(req,res){
+
+    let result = await db_query.getAllDoc();
+    if(result.status == false){
+        res.statusCode == 500;
+        res.json({msg: "Invalid credentials"})
+    }else if (result.status == true){
+        res.statusCode == 200;
+        res.json({msg: "all deoctors", list: result.data})
         
-    })
-})
+    } 
 
-router.get('/', authenticateToken, function(req,res){
-    db.getAllDoc(function(err, result){
-        if(err)
-        throw err;
-        res.json({msg: "all list of doctors", list:result})
-       // res.render('doctor.ejs', {list:result})
-    })
+    // db.getAllDoc(function(err, result){
+    //     if(err)
+    //     throw err;
+    //     res.json({msg: "all list of doctors", list:result})
+    //    // res.render('doctor.ejs', {list:result})
+    // })
 });
 
-router.post('/search',  authenticateToken, function(req,res){
+router.post('/search',  authenticateToken,  async function(req,res){
    var key = req.body.search;
-   db.searchDoc(key, function(err, result){
-    console.log(result);
-    if(err){
-        res.status(500).json(err.toString() )
-    }else{
-        res.json({list: result})
-    } 
+
+   let result = await db_query.searchdoc(key);
+
+   if(result.status == false){
+    res.statusCode == 500;
+    res.json({msg: "Invalid credentials"})
+   }else if(result.status == true){
+    res.statusCode == 200;
+    res.json({msg: "Search complete", list:result.data});
+
+   }
+
+//    db.searchDoc(key, function(err, result){
+//     console.log(result);
+//     if(err){
+//         res.status(500).json(err.toString() )
+//     }else{
+//         res.json({list: result})
+//     } 
     
-   // res.render('doctor.ejs', {list:result})
-   } )
+//    // res.render('doctor.ejs', {list:result})
+//    } )
 })
 
 

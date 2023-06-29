@@ -113,40 +113,12 @@ module.exports.temp = function(id,email,token, callback){
 }
 
 
-module.exports.add_doctor = function(first_name, last_name,email,dob, gender,address,phone, image,department,biography, callback){
-    var query = "insert into `doctor`(`first_name`,`last_name`,`email`,`dob`,`gender`,`address`,`phone`,`image`,`department`,`biography`) VALUES(?,?,?,?,?,?,?,?,?,?)";
-    var values = [first_name, last_name,email,dob, gender,address,phone, image,department,biography];
-    con.query(query,values,callback); 
-    console.log(query);
-}
 
 
-module.exports.getDocbyId = function(id, callback){
-    var query = "select * from doctor where id = ?";
-    var values = [id];
-    con.query(query, values, callback);
-    console.log(query);
-}
 
-module.exports.editDoc = function(id,first_name, last_name,email,dob, gender,address,phone, image,department,biography,callback){
-    var query = "update doctor set `first_name` = ? ,`last_name` = ?,`email` = ?,`dob` = ?,`gender` = ?,`address` = ?,`phone` = ?,`image` = ?,`department` = ?,`biography` = ? where id = ?";
-    var values = [first_name, last_name,email,dob, gender,address,phone, image,department,biography,id];
-    con.query(query, values,callback); 
-    console.log(query);
-}
 
-module.exports.deleteDoc = function(id,callback){
-    var query = "delete  from doctor where id = ?";
-    var values = [id];
-    con.query(query, values,callback);
-    console.log(query)
-}
 
-module.exports.searchDoc = function(key, callback){
-   var query = 'select  * from doctor where first_name like "%' + key + '%"';
-   con.query(query,callback);
-   console.log(query)
-}
+
 
 module.exports.getAlldept = function(callback){
     var query = "select * from  departments";
@@ -269,12 +241,7 @@ module.exports.searchEmp = function(key, callback){
       console.log(query)
     }
 
- module.exports.getallappoint =  function(callback){
-    var query = "select * from appointment";
-    con.query(query, callback)
-    console.log(query)
- }
-
+ 
  module.exports.editappointment = function(p_name, department, d_name, date, time, email, phone,id,  callback){
         var query = "update `appointment` set patient_name = ?, department = ?, date= ?, doctor_name = ?, time= ?, email = ?, phone = ?  where  id = ?";
         var values =  [p_name, department, d_name, date, time, email, phone, id];

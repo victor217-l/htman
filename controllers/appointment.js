@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var db_query = require('../models/db_model')
 var bodyParser = require('body-parser');
 var db = require.main.require('./models/db_controller')
 var jwt = require('jsonwebtoken')
@@ -17,17 +18,28 @@ module.exports = router;
 //     }
 // })
 
-router.get('/', authenticateToken, function(req,res){
-    db.getallappointment(function(err, result){
-        console.log(result);
-        if(err){
-            res.status(500)
-        }else{
-            res.status(200).json({
-                list:result })
-        }
-        res.render('appointment.ejs', {list: result})
-    })
+router.get('/', authenticateToken, async function(req,res){
+
+    let result = await db_query.getallappoint();
+
+    if(result.status == false){
+        res.statusCode == 500;
+        res.json({msg: "Invalid credentials"})
+    }else if(result.status == true){
+        res.statusCode == 200;
+        res.json({msg: "all appointments", list: result.data})
+    }
+
+    // db.getallappointment(function(err, result){
+    //     console.log(result);
+    //     if(err){
+    //         res.status(500)
+    //     }else{
+    //         res.status(200).json({
+    //             list:result })
+    //     }
+    //     res.render('appointment.ejs', {list: result})
+    // })
 })
 
 router.get('/add_appointment', function(req,res){
@@ -101,6 +113,8 @@ router.post('/delete_appointment', authenticateToken, function(req,res){
         //res.redirect('/appointment')
     })
 })
+
+
 
 
 function authenticateToken(req, res, next) {
