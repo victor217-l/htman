@@ -53,7 +53,7 @@ var signupp = (username,email,password,email_status) => {
             pool.getConnection(async (err, connection) => {
                 if(err) throw err
              
-                connection.query('INSERT INTO verify(`username`, `email`, `token`,) VALUES(?,?,?)', [username, email,token,], async (err, rows) => {
+                connection.query('INSERT INTO verify(`username`, `email`, `token`) VALUES(?,?,?)', [username, email,token,], async (err, rows) => {
                     connection.release() // return the connection to pool
     
                     if (err) {
@@ -73,7 +73,7 @@ var getuserid = ( email) => {
         pool.getConnection(async (err, connection) => {
             if(err) throw err
          
-            connection.query('SELECT * FROM verify WHERE email =  ?', [ email], async (err, rows) => {
+            connection.query('SELECT * FROM verify WHERE email =  ?', [email], async (err, rows) => {
                 connection.release() // return the connection to pool
 
                 if (err) {
@@ -131,26 +131,6 @@ var getAllDoc  = () => {
 
 
 
-// var  getAllDoc = () => {
-//     return new Promise((resolve,reject) => {
-//         pool.getConnection(async (err,connection) => {
-//             if(err) throw err
-//             connection.query("select * from doctor", async (err, rows) => {
-//                 connection.release();
-
-//                 if(err){
-//                     return resolve({status: false})
-//                 }else{
-//                     return resolve({status: true, data: rows});
-//                 }
-//             })
-           
-//         })
-
-//     })
-    
-
-// }
 
 
 module.exports = {
