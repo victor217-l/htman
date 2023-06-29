@@ -82,6 +82,7 @@ check('email').notEmpty().withMessage("email is required"),
      }else if(result.status === true){
         var token = randomToken(6);   
         let result1 = await  db_query.verify(req.body.username,email,token);
+        console.log(token)
        
         if(result1.status === false){
             res.statusCode = 500;
