@@ -214,7 +214,7 @@ var deletDoc = (id) => {
     return Promise((resolve,reject) => {
         pool.getConnection(async (err,connection) => {
             if(err) throw err;
-            connection.query("delete * from doctor where id = ?", [id], async (err,rows)=> {
+            connection.query("delete  from doctor where id = ?", [id], async (err,rows)=> {
                 connection.release();
                 if(err){
                     return resolve({status: false})
