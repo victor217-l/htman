@@ -187,7 +187,7 @@ var getDocbyId = (id) => {
 
 
 var editDoc = (id,first_name, last_name,email,dob, gender,address,phone, image,department,biography) => {
-    return Promise((resolve,reject) => {
+    return new Promise((resolve,reject) => {
         pool.getConnection(async (err,connection) => {
             if(err) throw err
             connection.query("update doctor set  `firstname` = ?, `lastname`= ?, `email`=?, `dob`=?, `gender`=?, `address` = ?,`phone` = ?,`image` = ?,`department` = ?,`biography` = ? where id = ?", [first_name, last_name,email,dob, gender,address,phone, image,department,biography,id], async (err,rows) =>{
@@ -211,7 +211,7 @@ var editDoc = (id,first_name, last_name,email,dob, gender,address,phone, image,d
 // }
 
 var deletDoc = (id) => {
-    return Promise((resolve,reject) => {
+    return new Promise((resolve,reject) => {
         pool.getConnection(async (err,connection) => {
             if(err) throw err;
             connection.query("delete  from doctor where id = ?", [id], async (err,rows)=> {
@@ -227,7 +227,7 @@ var deletDoc = (id) => {
 }
 
 var getAllDoc = () => {
-    return Promise((resolve,reject) => {
+    return new Promise((resolve,reject) => { // new must be there
         pool.getConnection(async (err,connection) => {
             if(err) throw err;
             connection.query("select * from doctor", async (err,rows) => {
