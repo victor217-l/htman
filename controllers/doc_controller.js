@@ -168,10 +168,10 @@ router.get('/', authenticateToken, async function(req,res){
 
     let result = await db_query.getAllDoc();
     if(result.status == false){
-        res.statusCode == 500;
+        res.statusCode = 500;
         res.json({msg: "Invalid credentials"})
     }else if (result.status == true){
-        res.statusCode == 200;
+        res.statusCode = 200;
         res.json({msg: "all deoctors", list: result.data})
         
     } 
@@ -190,10 +190,10 @@ router.post('/search',  authenticateToken,  async function(req,res){
    let result = await db_query.searchdoc(key);
 
    if(result.status == false){
-    res.statusCode == 500;
+    res.statusCode = 500;
     res.json({msg: "Invalid credentials"})
    }else if(result.status == true){
-    res.statusCode == 200;
+    res.statusCode = 200;
     res.json({msg: "Search complete", list:result.data});
 
    }
