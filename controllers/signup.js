@@ -96,7 +96,7 @@ check('email').notEmpty().withMessage("email is required"),
     res.json({msg: "error "})
   }else if (result2.status === true){
     if(result2.data.length>0){
-        var id = result.data[0].id;
+        var id = result2.data[0].id;
         var output = `<p> Dear ${username}, </p>
         <p> Thanks for sign up. Your verification id 
         and token is given below; </p> 
