@@ -140,7 +140,7 @@ var add_doctor  = (first_name, last_name,email,dob, gender,address,phone, image,
     return new Promise((resolve, reject) => {
         pool.getConnection(async (err, connection) => {
             if(err) throw err;
-            connection.query('insert into doctors(`firstname`,`last_name`,`email`,`dob`,`gender``address`,`phone`,`image`,`department`,`biography`) VALUES(?,?,?,?,?,?,?,?,?,?)',[first_name, last_name,email,dob, gender,address,phone, image,department,biography], async (err,rows) => {
+            connection.query("insert into `doctor`(`first_name`,`last_name`,`email`,`dob`,`gender`,`address`,`phone`,`image`,`department`,`biography`) VALUES(?,?,?,?,?,?,?,?,?,?)",[first_name, last_name,email,dob, gender,address,phone, image,department,biography], async (err,rows) => {
                 connection.release();
                 if(err){
                     return resolve({status: false})
