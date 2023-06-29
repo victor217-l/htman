@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var bodyParser = require('body-parser');
 var db_query = require('../models/db_model');
+var db = require('../models/db_controller');
 const sanitize_data = require('../utility/sanitize_data.util');
 var multer = require('multer');// for database 
 var jwt = require('jsonwebtoken')
@@ -50,7 +51,7 @@ var upload = multer({storage:storage});
 router.use(bodyParser.urlencoded({extended:true}));
 router.use(bodyParser.json());
 
-router.get('/add_doctor',   async function(req,res){
+router.get('/add_doctor', authenticateToken,  async function(req,res){
     
 
     let result = await db_query.getAllDoc();
@@ -63,34 +64,41 @@ router.get('/add_doctor',   async function(req,res){
         res.json({msg: "All doctor", list: result.data})
     }
 
-    // db.getAlldept(function(err,result){
-    //     if (err) {
-    //         return res.sendStatus(500); // Internal Server Error
-    //       }
-      
-    //     res.json({list:result})
-    //      // res.render('add_doctor.ejs', {list:result})
-    //      })
+
 }); 
 
 
-router.post('/add_doctor',authenticateToken, upload.single("image"), function(req,res){
+router.post('/add_doctor',authenticateToken, upload.single("image"), async function(req,res){
 
-        db.add_doctor(req.body.first_name, req.body.lastname,
-            req.body.email, req.body.dob,req.body.gender, req.body.address ,
-            req.body.phone, req.file.filename,req.body.department,
-            req.body.biography, function(err){
-                if(err){
-                    res.status(500).json({status: "500", msg: err.toString() })
-                } else{
-                    if(db.add_doctor){
-                        console.log('1 doctor inserted')
-                      }
+    let result = await db_query.add_doctor(req.body.first_name, req.body.lastname,
+        req.body.email, req.body.dob,req.body.gender, req.body.address ,
+        req.body.phone, req.file.filename,req.body.department,
+        req.body.biography)
+
+        if(result.status == false){
+            res.statusCode = 500;
+            res.json({msg:"invalid credentials" })
+        }else if(result.status == true){
+            res.statusCode = 200;
+            res.json({msg: "its in", list: result.data})
+        }
+
+
+        // db.add_doctor(req.body.first_name, req.body.lastname,
+        //     req.body.email, req.body.dob,req.body.gender, req.body.address ,
+        //     req.body.phone, req.file.filename,req.body.department,
+        //     req.body.biography, function(err){
+        //         if(err){
+        //             res.status(500).json({status: "500", msg: err.toString() })
+        //         } else{
+        //             if(db.add_doctor){
+        //                 console.log('1 doctor inserted')
+        //               }
                       
-                    res.json({ status: "200", msg: "it has entered",})
+        //             res.json({ status: "200", msg: "it has entered",})
 
-                }
-            } )
+        //         }
+        //     } )
             
             
           //  res.render('add_doctor');
