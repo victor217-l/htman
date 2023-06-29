@@ -250,7 +250,7 @@ var getAllDoc = () => {
 //  }
 
  var searchdoc = (key) => {
-    return Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
         pool.getConnection(async(err,connection) => {
             if(err) throw err;
             connection.query('select * from doctor where first_name like "%' + key + '%"', async (err,rows) => {
