@@ -441,7 +441,7 @@ var deleteleave = (id) => {
     return new Promise((resolve,reject) => {
         pool.getConnection(async (err,connection) => {
             if(err) throw err;
-            connection.query("delete from leaves where id = ?", async (err,rows) => {
+            connection.query("delete from leaves where id = ?", [id], async (err,rows) => {
                 connection.release();
                 if(err){
                     return resolve({status: false})
