@@ -522,7 +522,7 @@ var deleteleave = (id) => {
     return new Promise((resolve,reject) => {
         pool.getConnection(async (err,connection) => {
             if(err) throw err;
-            connection.query('select * from employee where name like "%' + key + '%"',async (err,rows)=> {
+            connection.query('select * from employee where name like "%' +key+ '%" ',async (err,rows)=> {
                 connection.release();
                 if(err){
                     return resolve({status: false})
