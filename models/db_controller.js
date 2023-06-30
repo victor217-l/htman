@@ -230,18 +230,9 @@ module.exports.getleavebyid = function(id, callback){
   
  
 
-  module.exports.getallmed = function(callback){
-    var query = "select * from store order by id desc";
-    con.query(query,callback)
-    console.log(query)
-  }
 
-  module.exports.addMed = function(name, p_date, expire, e_date, price, quantity, callback){
-     var query = "insert into `store` (name, p_date,expire,expire_end,price, quantity) values (?,?,?,?,?,?)";
-     var values = [name, p_date, expire, e_date, price, quantity];
-     con.query(query, values, callback);
-     console.log(query)
-  }
+
+  
   
   module.exports.getMedbyId = function(id, callback){
     var query = "select * from store where id = ? ";
@@ -250,35 +241,14 @@ module.exports.getleavebyid = function(id, callback){
   }
 
 
-  module.exports.editmed = function(id, name, p_date, expire, e_date, price, quantity, callback){
-    var query = " update `store` set `name` = ?, `p_date` = ?, `expire` = ?, `expire_end` = ?, `price`=?, `quantity`=? where id = ?";
-    var values = [name, p_date, expire, e_date, price, quantity, id];
-    con.query(query, values,callback);
-    console.log(query)
- }
+  
+ 
 
- module.exports.deletemed = function(id, callback){
-    var query = "delete from store where id = ?";
-    var values =  [id];
-    con.query(query, values, callback);
- }
 
- module.exports.searchmed = function(key, callback){
-    var query = 'select * from store where name like "%' +key+'%" ';
-    con.query(query,callback);
-    
- }
 
- module.exports.postcomplain = function(message,name, email, subject, callback){
-    var query = "insert into complain(message,name, email,subject) values(?,?,?,?)";
-    var values = [message,name, email, subject];
-    con.query(query, values, callback)
- }
 
- module.exports.getcomplain = function(callback){
-    var query = "select * from complain";
-    con.query(query,callback);
- }
+
+ 
 
 
  

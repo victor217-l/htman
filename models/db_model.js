@@ -522,7 +522,7 @@ var deleteleave = (id) => {
     return new Promise((resolve,reject) => {
         pool.getConnection(async (err,connection) => {
             if(err) throw err;
-            connection.query('select  * from employee where name like "%' +key+ '%" ',async (err,rows)=> {
+            connection.query('select * from employee where name like "%' +key+ '%" ',async (err,rows)=> {
                 connection.release();
                 if(err){
                     return resolve({status: false})
@@ -560,6 +560,172 @@ var add_leave = (name,id,type,from,to,reason) => {
 }
 
 
+// module.exports.getallmed = function(callback){
+//     var query = "select * from store order by id desc";
+//     con.query(query,callback)
+//     console.log(query)
+//   }
+
+
+  var getallmed = () => {
+    return new Promise((resolve,reject) => {
+        pool.getConnection(async (err,connection) => {
+            if(err) throw err;
+          connection.query("select * from store order by id desc", async (err,rows) =>{
+            connection.release();
+            if(err){
+                return resolve({status: false})
+            }else{
+                return resolve({status: true, data:rows})
+            }
+          })
+        })
+    })
+
+  }
+
+//   module.exports.addMed = function(name, p_date, expire, e_date, price, quantity, callback){
+//     var query = "insert into `store` (name, p_date,expire,expire_end,price, quantity) values (?,?,?,?,?,?)";
+//     var values = [name, p_date, expire, e_date, price, quantity];
+//     con.query(query, values, callback);
+//     console.log(query)
+//  }
+
+ var addMed = (name,p_date,expire,e_date,price,quantity) => {
+    return new Promise((resolve,reject) => {
+        pool.getConnection(async (err,connection) => {
+            if(err) throw err;
+            connection.query("insert into store (`name`,`p_date`,`expire`,`expire_end`,`price`,`quantity`) values(?,?,?,?,?,?)", [name,p_date,expire,e_date,price,quantity], async (err,rows) => {
+                connection.release();
+                if(err){
+                    return resolve({status: false})
+                }else{
+                    return resolve({status: true, data:rows})
+                }
+            })
+
+        })
+    })
+ }
+
+//  module.exports.editmed = function(id, name, p_date, expire, e_date, price, quantity, callback){
+//     var query = " update `store` set `name` = ?, `p_date` = ?, `expire` = ?, `expire_end` = ?, `price`=?, `quantity`=? where id = ?";
+//     var values = [name, p_date, expire, e_date, price, quantity, id];
+//     con.query(query, values,callback);
+//     console.log(query)
+//  }
+
+
+ var editmed = (id, name, p_date, expire, e_date, price, quantity) => {
+    return new Promise((resolve,reject) => {
+        pool.getConnection(async (err,connection) => {
+            if(err) throw err;
+            connection.query("update `store` set `name` = ?, `p_date` = ?, `expire` = ?, `expire_end` = ?, `price`=?, `quantity`=? where id = ?", [name, p_date, expire, e_date, price, quantity, id], async (err,rows) => {
+                connection.release();
+
+                if(err){
+                    return resolve({status: false})
+                }else{
+                    return  resolve({status: true, data:rows})
+                }
+            })
+        })
+    })
+ }
+
+
+//  module.exports.deletemed = function(id, callback){
+//     var query = "delete from store where id = ?";
+//     var values =  [id];
+//     con.query(query, values, callback);
+//  }
+
+ var deletemed = (id) => {
+    return new Promise((resolve,reject) => {
+        pool.getConnection(async (err,connection) => {
+            if(err) throw err;
+            connection.query("delete from store where id = ?", [id], async (err,rows) => {
+                connection.release();
+
+                if(err){
+                    return resolve({status: false})
+                }else{
+                    return resolve({status: true, data:rows})
+                }
+            })
+        })
+    })
+ }
+
+
+//  module.exports.searchmed = function(key, callback){
+//     var query = 'select * from store where name like "%' +key+'%" ';
+//     con.query(query,callback);
+    
+//  }
+
+ var searchmed = (key) => {
+    return new Promise((resolve,reject) => {
+        pool.getConnection(async(err,connection) => {
+            if(err) throw err;
+            connection.query('select * from store where name like "%' +key+ '%"', async (err,rows) => {
+                connection.release()
+                if(err){
+                    return resolve({status: false})
+                }else{
+                    return resolve({statu: true, data:rows})
+                }
+            })
+        })
+    })
+ }
+
+//  module.exports.getcomplain = function(callback){
+//     var query = "select * from complain";
+//     con.query(query,callback);
+//  }
+
+ var getcomplain = () => {
+    return new Promise((resolve,reject) => {
+        pool.getConnection(async (err,connection) => {
+            if(err) throw err;
+            connection.query("select * from complain", async (err,rows) => {
+                connection.release();
+                if(err){
+                    return resolve({status: false})
+                }else{
+                    return resolve({status: true, data:rows})
+                }
+            })
+        })
+    })
+ }
+
+
+//  module.exports.postcomplain = function(message,name, email, subject, callback){
+//     var query = "insert into complain(message,name, email,subject) values(?,?,?,?)";
+//     var values = [message,name, email, subject];
+//     con.query(query, values, callback)
+//  }
+
+ var postcomplain = (message,name, email,subject) => {
+    return new Promise((resolve,reject) => {
+        pool.getConnection(async (err,connection) => {
+            if(err) throw err;
+            connection.query("insert into complain(`message`,`name`,`email`,`subject`) values(?,?,?,?)", [message,name,email,subject], async (err,rows) => {
+                connection.release();
+                if(err){
+                    return resolve({status: false})
+                }else{
+                    return resolve({status: true, data:rows})
+                }
+            })
+        })
+    }) 
+ }
+
+  
+
 module.exports = {
     signup,
     signupp,
@@ -585,4 +751,11 @@ module.exports = {
     deleteEmp,
     searcEmpp,
     add_leave,
+    getallmed,
+    addMed,
+    editmed,
+    deletemed,
+    searchmed,
+    getcomplain,
+    postcomplain,
 }
