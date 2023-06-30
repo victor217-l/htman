@@ -471,7 +471,7 @@ var deleteleave = (id) => {
     return new Promise((resolve,reject) => {
         pool.getConnection(async (err,connection) => {
             if(err) throw err;
-            connection.query("updata `employee` set `name` = ?, `email` = ?,`contact` =?, `join_date`=?, `role`=?, `salary`=? where id = ?", [id,name,email,contact,join_date,salary,role], async (err,rows) => {
+            connection.query("update `employee` set `name` = ?, `email` = ?,`contact` =?, `join_date`=?, `role`=?, `salary`=? where id = ?", [id,name,email,contact,join_date,salary,role], async (err,rows) => {
                 connection.release();
 
                 if(err){
