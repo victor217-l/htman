@@ -273,7 +273,7 @@ check('id').notEmpty(),
     }
 
 
-    let result = await db_query.add_leave(req.body.id,req.body.name,req.body.leave_type,req.body.from,req.body.to,req.body.reason);
+    let result = await db_query.add_leave(req.body.name,req.body.id,req.body.leave_type,req.body.from,req.body.to,req.body.reason);
 
     if(result.status == false){
         res.statusCode = 500;
