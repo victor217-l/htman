@@ -46,19 +46,32 @@ router.get('/add_appointment', function(req,res){
     res.render('add_appointment.ejs');
 })
 
-router.post('/add_appointment', authenticateToken, function(req,res){
-    db.add_appointment(req.body.p_name, req.body.department, req.body.d_name, 
-       req.body.date, req.body.time,  req.body.email,req.body.phone,
-       function(err, result){
-        if(err){
-            res.status(500).json({msg: err.toString()})
-        }else{
-            res.status(200).json({msg: "new appointment", list:result})
+router.post('/add_appointment', authenticateToken, async function(req,res){
+
+
+
+    let result = await db_query.add_appointment(req.body.p_name, req.body.department, req.body.d_name, 
+        req.body.date, req.body.time,  req.body.email,req.body.phone);
+
+        if(result.status == false){
+            res.statusCode = 500;
+            res.json({msg:"Invalid credentials"})
+        }else if(result.status == true){
+            res.statusCode = 200;
+            res.json({msg: "new appointment",  list:result.data})
         }
+    // db.add_appointment(req.body.p_name, req.body.department, req.body.d_name, 
+    //    req.body.date, req.body.time,  req.body.email,req.body.phone,
+    //    function(err, result){
+    //     if(err){
+    //         res.status(500).json({msg: err.toString()})
+    //     }else{
+    //         res.status(200).json({msg: "new appointment", list:result})
+    //     }
         
-        // req.redirect('/appointment')
-       }
-    )
+    //     // req.redirect('/appointment')
+    //    }
+    // )
 })
 
 router.get('/edit_appointment',  authenticateToken, function(res, res){
@@ -74,19 +87,32 @@ router.get('/edit_appointment',  authenticateToken, function(res, res){
     })
 }) 
 
-router.post('/edit_appointment', authenticateToken,  function(req,res){
+router.post('/edit_appointment', authenticateToken,  async function(req,res){
     var id = req.body.id;
-    db.editappointment(req.body.p_name, req.body.department, req.body.d_name, 
-       req.body.date, req.body.time,  req.body.email,req.body.phone,id,
-       function(err, result){
-        if(err){
-            res.status(500).json({msg: err.toString()})
-        }else{
-          res.json({msg: " appointment edited",})
+
+    let result = await db_query.editappointment(req.body.p_name, req.body.department, req.body.d_name, 
+        req.body.date, req.body.time,  req.body.email,req.body.phone,id);
+
+        if(result.status == false){
+            res.statusCode = 500;
+            res.json({msg: "Invalid credentials"})
+        }else if(result.status == true){
+            res.statusCode = 200;
+            res.json({msg: "Appoinment ", list:result.data})
         }
-        // req.redirect('/appointment')
-       }
-    )
+
+
+    // db.editappointment(req.body.p_name, req.body.department, req.body.d_name, 
+    //    req.body.date, req.body.time,  req.body.email,req.body.phone,id,
+    //    function(err, result){
+    //     if(err){
+    //         res.status(500).json({msg: err.toString()})
+    //     }else{
+    //       res.json({msg: " appointment edited",})
+    //     }
+    //     // req.redirect('/appointment')
+    //    }
+    // )
 })
 
 router.get('/delete_appointment', authenticateToken, function(req,res){
@@ -102,16 +128,28 @@ router.get('/delete_appointment', authenticateToken, function(req,res){
     })
 })
 
-router.post('/delete_appointment', authenticateToken, function(req,res){
+router.post('/delete_appointment', authenticateToken, async function(req,res){
     var id = req.body.id;
-    db.deleteappointment(id, function(err, result){
-        if(err){
-            res.status(500).json({msg: err.toString()})
-        }else{
-            res.json({msg: "it has beem deleted"})
-        }
-        //res.redirect('/appointment')
-    })
+
+    let result = await db_query.deleteappointment(id);
+
+    if(result.status == false){
+        res.statusCode = 500;
+        res.json({msg:"Invalid credentials"})
+    }else{
+        res.statusCode = 200;
+        res.json({msg:"appointment" , list:result.data})
+    }
+
+
+    // db.deleteappointment(id, function(err, result){
+    //     if(err){
+    //         res.status(500).json({msg: err.toString()})
+    //     }else{
+    //         res.json({msg: "it has beem deleted"})
+    //     }
+    //     //res.redirect('/appointment')
+    // })
 })
 
 

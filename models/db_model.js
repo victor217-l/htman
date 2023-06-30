@@ -243,12 +243,6 @@ var getAllDoc = () => {
 }
 
 
-// module.exports.searchDoc = function(key, callback){
-//     var query = 'select  * from doctor where first_name like "%' + key + '%"';
-//     con.query(query,callback);
-//     console.log(query)
-//  }
-
  var searchdoc = (key) => {
     return new Promise((resolve, reject) => {
         pool.getConnection(async(err,connection) => {
@@ -267,13 +261,6 @@ var getAllDoc = () => {
     })
 
  }
-
-
-//  module.exports.getallappoint =  function(callback){
-//     var query = "select * from appointment";
-//     con.query(query, callback)
-//     console.log(query)
-//  }
 
 
  var getallappoint = () => {
@@ -295,6 +282,283 @@ var getAllDoc = () => {
  }
 
 
+//  module.exports.add_appointment =  function(p_name, department, d_name, date, time,email, phone, callback, ){
+//     var query = "insert into `appointment`(`patient_name`, `department`, `doctor_name`,`date`,`time`,`email`, `phone`) values(?,?,?,?,?,?,?)";
+//     var values = [p_name, department, d_name,   date, time,email, phone];
+//   con.query(query, values, callback);
+//   console.log(query)
+// }
+
+
+var add_appointment = (p_name, department, d_name, date, time,email, phone) => {
+    return new Promise((resolve,reject) => {
+        pool.getConnection(async (err,connection) => {
+            if(err) throw err
+            connection.query("insert into `appointment`(`patient_name`, `department`, `doctor_name`,`date`,`time`,`email`, `phone`) values(?,?,?,?,?,?,?)",[p_name, department, d_name,   date, time,email, phone], async (err,rows) => {
+              connection.release();
+              if(err){
+                return resolve({status: false})
+              }else{
+                return resolve({status: true, data:rows})
+              }
+            })
+        })
+    })
+}
+
+
+// module.exports.editappointment = function(p_name, department, d_name, date, time, email, phone,id,  callback){
+//     var query = "update `appointment` set patient_name = ?, department = ?, date= ?, doctor_name = ?, time= ?, email = ?, phone = ?  where  id = ?";
+//     var values =  [p_name, department, d_name, date, time, email, phone, id];
+//     con.query(query, values, callback);
+//     console.log(query)
+// }
+
+
+var editappointment = (p_name, department, d_name, date, time, email, phone,id) => {
+    return new Promise((resolve, reject) => {
+        pool.getConnection(async (err,connection) => {
+            if(err)throw err
+            connection.query("update `appointment` set patient_name = ?, department = ?, date= ?, doctor_name = ?, time= ?, email = ?, phone = ?  where  id = ?",[p_name, department, d_name, date, time, email, phone, id], async (err, rows)=> {
+                connection.release()
+
+                if(err){
+                    return resolve({status: false})
+                }else{
+                    return resolve({status: true, data: rows})
+                }
+            })
+        })
+    })
+}
+
+
+// module.exports.deleteappointment = function(id, callback){
+//     var query = "delete from appointment where  id = ?";
+//     var values = [id];
+//     con.query(query, values, callback);
+//   } 
+
+
+  var deleteappointment = (id) => {
+    return new Promise((resolve,reject) => {
+        pool.getConnection(async (err,connection) => {
+            if(err) throw err;
+            connection.query("delete from appointment where id = ?", async (err,rows) => {
+                connection.release();
+                if(err){
+                    return resolve({status: false})
+                }else{
+                    return resolve({status: true, data:rows})
+                }
+            })
+        })
+    })
+  }
+
+
+//   module.exports.getAllemployee = function(callback){
+//     var query = "select * from employee";
+//     con.query(query, callback);
+//     console.log(query)
+// }
+
+
+var getAllemployee = () => {
+    return new Promise((resolve,reject) => {
+        pool.getConnection(async (err,connection) => {
+            if(err) throw err;
+            connection.query("select * from employee", async (err,rows) => {
+                connection.release();
+
+                if(err){
+                    return resolve({status: false})
+                }else{
+                    return resolve({status: true, data:rows})
+                }
+            })
+        })
+    })
+}
+
+
+// module.exports.add_employee = function(name, email,  contact, join_date, role,  salary,callback){
+//     var query = "insert into employee(`name`,`email`,`contact`,`join_date`,`role`,salary) values(?,?,?,?,?,?)";
+//     var values = [name, email,  contact, join_date, role,  salary];
+//     con.query(query, values,callback);
+//     console.log(query);
+// }
+
+var add_employee = (name,email,contact, join_date,role, salary) => {
+    return new Promise((resolve,reject) => {
+        pool.getConnection(async(err,connection) => {
+            if(err) throw err;
+            connection.query("insert into employee(`name`,`email`,`contact`,`join_date`,`role`,`salary`) values(?,?,?,?,?,?)", [name, email,  contact, join_date, role,  salary], async (err,rows) => {
+                connection.release()
+                if(err){
+                    return resolve({status: false})
+                }else{
+                    return resolve({status: true, data:rows})
+                }
+            } )
+        })
+    })
+}
+
+// module.exports.getAllleave = function(callback){
+//     var query = "select * from leaves";
+//     con.query(query, callback)
+// }
+
+
+var getAllLeave = () => {
+    return new Promise((resolve,reject) => {
+        pool.getConnection(async (err,connection) => {
+            if(err) throw err;
+            connection.query("select * from leaves", async (err,rows) => {
+                connection.release();
+                if(err){
+                    return resolve({status: false})
+                }else{
+                    return resolve({status: true, data:rows})
+                }
+            })
+        })
+    })
+
+}
+
+
+
+// module.exports.deleteleave = function(id, callback){
+//     var query = "delete from leaves where id = ?";
+//     var values = [id];
+//     con.query(query, values,callback);
+//     console.log(query)
+// }
+
+var deleteleave = (id) => {
+    return new Promise((resolve,reject) => {
+        pool.getConnection(async (err,connection) => {
+            if(err) throw err;
+            connection.query("delete from leaves where id = ?", async (err,rows) => {
+                connection.release();
+                if(err){
+                    return resolve({status: false})
+                }else{
+                    return resolve({status: true, data:rows})
+
+                }
+
+
+            })
+
+
+        })
+    })
+}
+
+
+// module.exports.editEmp= function(id, name, email, contact, join_date, salary, role, callback ){
+//     var query = "update `employee` set `name` = ?, `email` = ?, `contact` = ?, `join_date` = ?, `role` = ?, `salary` = ? where `id` = ? ";//dont put comma before were
+//      var values = [name, email,  contact, join_date, salary, role,id];
+//     con.query(query, values, callback )
+//     console.log(query)
+//  }
+
+
+ var editEmp = (id,name,email,contact,join_date,salary,role) => {
+    return new Promise((resolve,reject) => {
+        pool.getConnection(async (err,connection) => {
+            if(err) throw err;
+            connection.query("updata `employee` set `name` = ?, `email` = ?,`contact` =?, `join_date`=?, `role`=?, `salary`=? where id = ?", [id,name,email,contact,join_date,salary,role], async (err,rows) => {
+                connection.release();
+
+                if(err){
+                    return resolve({status: false})
+                }else{
+                    return resolve({status: true})
+                }
+            } )
+        })
+    })
+
+ }
+
+
+//  module.exports.deleteEmp= function(id,  callback ){
+//     var query = "delete from employee where id = ?" ; //comma ahounldnt be at the end
+//     var values = [id];
+//     con.query(query, values, callback);
+//     console.log(query)
+//  }
+
+
+ var deleteEmp = (id) => {
+    return new Promise((resolve,reject) => {
+        pool.getConnection(async (err,connection) => {
+            if(err) throw err;
+            connection.query("delete from employee where id = ?", [id], async (err,rows) => {
+                connection.release();
+                if(err){
+                    return resolve({status: false})
+                }else{
+                    return resolve({status: true, data:rows})
+                }
+            })
+        })
+    })
+ }
+
+
+//  module.exports.searchEmp = function(key, callback){
+//     var query = 'select  * from employee where name like "%' +key+ '%" ' ;
+//     con.query(query,callback);
+//     console.log(query)
+//  }
+
+
+ var searcEmpp = (key) => {
+    return new Promise((resolve,reject) => {
+        pool.getConnection(async (err,connection) => {
+            if(err) throw err;
+            connection.query('select * from employee where name like "%' + key + '%"',async (err,rows)=> {
+                connection.release();
+                if(err){
+                    return resolve({status: false})
+                }else{
+                    return resolve({status: true, data:rows})
+                }
+            } )
+        })
+    })
+ }
+
+
+//  module.exports.add_leave = function(name, id, type,from,to,reason,callback){
+//     var query = "insert into `leaves` (`employee`,`emp_id`,`leave_type`,`date_from`,`date_to`,`reason`) values(?,?,?,?,?,?)";
+//     var values = [name, id, type, from, to, reason, ];
+//     con.query(query, values,callback);
+//     console.log(query);
+// }
+
+var add_leave = (name,id,type,from,to,reason) => {
+    return new Promise((resolve,reject)=> {
+        pool.getConnection(async (err,connection) => {
+            if(err) throw err;
+            connection.query("insert into `leaves` (`employee`,`emp_id`,`leave_type`,`date_from`,`date_to`,`reason`) values(?,?,?,?,?,?)", [name,id,type,from,to,reason], async (err,rows) => {
+                connection.release();
+                if(err){
+                    return resolve({status: false})
+                }else{
+                    return resolve({status: true, data:rows})
+                }
+            })
+        })
+    })
+
+}
+
 
 module.exports = {
     signup,
@@ -310,6 +574,15 @@ module.exports = {
     getAllDoc,
     searchdoc,
     getallappoint,
-    
-
+    add_appointment,
+    editappointment,
+    deleteappointment,
+    getAllemployee,
+    add_employee,
+    getAllLeave,
+    deleteleave,
+    editEmp,
+    deleteEmp,
+    searcEmpp,
+    add_leave,
 }

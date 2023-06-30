@@ -133,19 +133,7 @@ module.exports.getleavebyid = function(id, callback){
     console.log(query)
 }
 
-module.exports.getAllleave = function(callback){
-    var query = "select * from leaves";
-    con.query(query, callback)
-}
 
-
-
-module.exports.add_leave = function(name, id, type,from,to,reason,callback){
-    var query = "insert into `leaves` (`employee`,`emp_id`,`leave_type`,`date_from`,`date_to`,`reason`) values(?,?,?,?,?,?)";
-    var values = [name, id, type, from, to, reason, ];
-    con.query(query, values,callback);
-    console.log(query);
-}
 
 
 // module.exports.add_leave = function (
@@ -180,46 +168,14 @@ module.exports.add_leave = function(name, id, type,from,to,reason,callback){
 
  
 
-module.exports.deleteleave = function(id, callback){
-    var query = "delete from leaves where id = ?";
-    var values = [id];
-    con.query(query, values,callback);
-    console.log(query)
-}
 
-module.exports.getAllemployee = function(callback){
-    var query = "select * from employee";
-    con.query(query, callback);
-    console.log(query)
-}
  
 
-module.exports.add_employee = function(name, email,  contact, join_date, role,  salary,callback){
-    var query = "insert into employee(`name`,`email`,`contact`,`join_date`,`role`,salary) values(?,?,?,?,?,?)";
-    var values = [name, email,  contact, join_date, role,  salary];
-    con.query(query, values,callback);
-    console.log(query);
-}
 
-module.exports.searchEmp = function(key, callback){
-    var query = 'select  * from employee where name like "%' +key+ '%" ' ;
-    con.query(query,callback);
-    console.log(query)
- }
 
- module.exports.deleteEmp= function(id,  callback ){
-    var query = "delete from employee where id = ?" ; //comma ahounldnt be at the end
-    var values = [id];
-    con.query(query, values, callback);
-    console.log(query)
- }
 
- module.exports.editEmp= function(id, name, email, contact, join_date, salary, role, callback ){
-    var query = "update `employee` set `name` = ?, `email` = ?, `contact` = ?, `join_date` = ?, `role` = ?, `salary` = ? where `id` = ? ";//dont put comma before were
-     var values = [name, email,  contact, join_date, salary, role,id];
-    con.query(query, values, callback )
-    console.log(query)
- }
+
+ 
 
  module.exports.getEmpbyId= function(id,  callback ){
     var query = "select * from employee where id = ?," [id];
@@ -234,20 +190,9 @@ module.exports.searchEmp = function(key, callback){
     console.log(query)
  }
 
- module.exports.add_appointment =  function(p_name, department, d_name, date, time,email, phone, callback, ){
-        var query = "insert into `appointment`(`patient_name`, `department`, `doctor_name`,`date`,`time`,`email`, `phone`) values(?,?,?,?,?,?,?)";
-        var values = [p_name, department, d_name,   date, time,email, phone];
-      con.query(query, values, callback);
-      console.log(query)
-    }
-
  
- module.exports.editappointment = function(p_name, department, d_name, date, time, email, phone,id,  callback){
-        var query = "update `appointment` set patient_name = ?, department = ?, date= ?, doctor_name = ?, time= ?, email = ?, phone = ?  where  id = ?";
-        var values =  [p_name, department, d_name, date, time, email, phone, id];
-        con.query(query, values, callback);
-        console.log(query)
-    }
+ 
+ 
 
 // module.exports.editappointment = function (
 //     p_name,
@@ -283,11 +228,7 @@ module.exports.searchEmp = function(key, callback){
 
 
   
-  module.exports.deleteappointment = function(id, callback){
-    var query = "delete from appointment where  id = ?";
-    var values = [id];
-    con.query(query, values, callback);
-  } 
+ 
 
   module.exports.getallmed = function(callback){
     var query = "select * from store order by id desc";
